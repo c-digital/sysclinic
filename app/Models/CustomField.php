@@ -30,6 +30,7 @@ class CustomField extends Model
         'Invoice' => 'Invoice',
         'Bill' => 'Bill',
         'account' => 'Account',
+        'consultation' => 'Consultas'
     ];
 
     public static function saveData($obj, $data)

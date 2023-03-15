@@ -174,6 +174,27 @@
                     @endif
                     <!--------------------- End Dashboard ----------------------------------->
 
+                    <!--------------------- Start Dashboard ----------------------------------->
+                    @if( Gate::check('show hrm dashboard') || Gate::check('show project dashboard') || Gate::check('show account dashboard'))
+                        <li class="dash-item dash-hasmenu
+                                {{ (Request::segment(1) == 'consultation') ?'active dash-trigger':''}}">
+
+                            <a href="#!" class="dash-link "><span class="dash-micon"><i class="ti ti-list"></i></span><span class="dash-mtext">Consultas</span>
+                                <span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
+
+                            <ul class="dash-submenu">
+                                <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'consultation' && Request::segment(2) == 'create') ? ' active dash-trigger' : ''}}">
+                                    <a class="dash-link" href="/consultation/create">{{__('Crear consulta ')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
+                                </li>
+
+                                <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'consultation' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
+                                    <a class="dash-link" href="/consultation">{{__('Listado de consultas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                    <!--------------------- End Dashboard ----------------------------------->
+
 
                     <!--------------------- Start HRM ----------------------------------->
 
