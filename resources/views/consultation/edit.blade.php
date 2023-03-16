@@ -12,6 +12,9 @@
 
 @section('content')
     {{ Form::open(array('url' => 'consultation/update','enctype' => "multipart/form-data")) }}
+
+        <input type="hidden" name="id" value="{{ $consultation->id }}">
+
         <div class="row mt-3">
             <div class="col-12">
                 <div class="card">
@@ -35,14 +38,26 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_professional">{{ __('Profesional') }}</label>
+                                    <label for="id_user">{{ __('Profesional') }}</label>
 
-                                    <select name="id_professional" class="form-control">
+                                    <select name="id_user" class="form-control">
                                         <option value=""></option>
 
                                         @foreach($users as $user)
                                             <option {{ $user->id == $consultation->id_user ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Estado</label>
+
+                                    <select name="status" class="form-control">
+                                        <option {{ $consultation->status == 'Pendiente' ? 'selected' : '' }} value="Pendiente">Pendiente</option>
+                                        <option {{ $consultation->status == 'En atención' ? 'selected' : '' }} value="En atención">En atención</option>
+                                        <option {{ $consultation->status == 'Finalizada' ? 'selected' : '' }} value="Finalizada">Finalizada</option>
                                     </select>
                                 </div>
                             </div>
@@ -81,6 +96,16 @@
                                                 {{ json_decode($consultation->fields, true)[$field->name] }}
                                             </textarea>
                                         @endif
+
+                                        @if($field->type == 'select')
+                                            <select name="fields[{{ $field->name }}]" class="form-control">
+                                                <option value=""></option>
+
+                                                @foreach(explode(',', $field->options) as $option)
+                                                    <option {{ (json_decode($consultation->fields, true)[$field->name] ?? null) == $option ? 'selected' : '' }} value="{{ $option }}">{{ $option }}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach                            
@@ -96,11 +121,13 @@
 
                         <hr>
 
-                        @foreach(json_decode($consultation->images) as $img)
-                            <div class="col-md-3">
-                                <img src="{{ $img }}" alt="">
-                            </div>
-                        @endforeach
+                        <div class="row">
+                            @foreach(json_decode($consultation->images) as $img)
+                                <div class="col-md-4 p-1">
+                                    <img class="img-fluid" src="{{ '/storage/' . $img }}" alt="">
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

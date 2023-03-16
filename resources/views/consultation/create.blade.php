@@ -35,13 +35,27 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_professional">{{ __('Profesional') }}</label>
+                                    <label for="id_user">{{ __('Profesional') }}</label>
 
-                                    <select name="id_professional" class="form-control">
+                                    <select name="id_user" class="form-control">
                                         <option value=""></option>
 
                                         @foreach($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_consutations_types">{{ __('Tipo de consulta') }}</label>
+
+                                    <select name="id_consutations_types" class="form-control">
+                                        <option value=""></option>
+
+                                        @foreach($consultationTypes as $type)
+                                            <option {{ request()->consultation_type == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -55,33 +69,45 @@
 
                     <div class="card-body">
                         <div class="row">
-                            @foreach($fields as $field)
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="{{ $field->name }}">{{ $field->name }}</label>
+                            @if($fields)
+                                @foreach($fields as $field)
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="{{ $field->name }}">{{ $field->name }}</label>
 
-                                        @if($field->type == 'text')
-                                            <input class="form-control" type="text" name="fields[{{ $field->name }}]">
-                                        @endif
+                                            @if($field->type == 'text')
+                                                <input class="form-control" type="text" name="fields[{{ $field->name }}]">
+                                            @endif
 
-                                        @if($field->type == 'date')
-                                            <input class="form-control" type="date" name="fields[{{ $field->name }}]">
-                                        @endif
+                                            @if($field->type == 'date')
+                                                <input class="form-control" type="date" name="fields[{{ $field->name }}]">
+                                            @endif
 
-                                        @if($field->type == 'email')
-                                            <input class="form-control" type="email" name="fields[{{ $field->name }}]">
-                                        @endif
+                                            @if($field->type == 'email')
+                                                <input class="form-control" type="email" name="fields[{{ $field->name }}]">
+                                            @endif
 
-                                        @if($field->type == 'number')
-                                            <input class="form-control" type="number" name="fields[{{ $field->name }}]">
-                                        @endif
+                                            @if($field->type == 'number')
+                                                <input class="form-control" type="number" name="fields[{{ $field->name }}]">
+                                            @endif
 
-                                        @if($field->type == 'textarea')
-                                            <textarea class="form-control" name="fields[{{ $field->name }}]"></textarea>
-                                        @endif
+                                            @if($field->type == 'textarea')
+                                                <textarea class="form-control" name="fields[{{ $field->name }}]"></textarea>
+                                            @endif
+
+                                            @if($field->type == 'select')
+                                                <select name="fields[{{ $field->name }}]" class="form-control">
+                                                    <option value=""></option>
+
+                                                    @foreach(explode(',', $field->options) as $option)
+                                                        <option value="{{ $option }}">{{ $option }}</option>
+                                                    @endforeach
+                                                </select>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach                            
+                                @endforeach      
+                            @endif                      
                         </div>
                     </div>
                 </div>
@@ -98,4 +124,16 @@
 
         <input type="submit" value="Guardar cambios" class="btn btn-primary">
     {{ Form::close() }}
+@endsection
+
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $('[name=id_consutations_types]').change(function () {
+                consutation_type = $(this).val();
+                window.location.href = window.location.href + '?consultation_type=' + consutation_type;
+            })
+        });
+    </script>
 @endsection

@@ -16,6 +16,14 @@ Route::get('consultation/delete/{id}', 'ConsultationController@delete');
 Route::post('consultation', 'ConsultationController@store');
 Route::post('consultation/update', 'ConsultationController@update');
 
+Route::get('consultationTypes', 'ConsultationTypeController@index');
+Route::get('consultationTypes/create', 'ConsultationTypeController@create');
+Route::get('consultationTypes/edit/{id}', 'ConsultationTypeController@edit');
+Route::get('consultationTypes/delete/{id}', 'ConsultationTypeController@delete');
+
+Route::post('consultationTypes', 'ConsultationTypeController@store');
+Route::post('consultationTypes/update', 'ConsultationTypeController@update');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -190,6 +190,10 @@
                                 <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'consultation' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
                                     <a class="dash-link" href="/consultation">{{__('Listado de consultas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                                 </li>
+
+                                <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'consultationTypes' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
+                                    <a class="dash-link" href="/consultationTypes">{{__('Tipo de consultas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
+                                </li>
                             </ul>
                         </li>
                     @endif

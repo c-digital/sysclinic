@@ -6,24 +6,70 @@ use Illuminate\Database\Eloquent\Model;
 
 class Consultation extends Model
 {
+    public $timestamps = false;
+
     protected $table = 'consultations';
 
     protected $fillable = [
         'id_customer', 
-        'id_user', 
+        'id_user',
+        'created_by',
         'date', 
         'fields', 
         'images', 
-        'status'
+        'status',
+        'id_consultations_types'
     ];
 
     public function customer()
     {
-        return $this->belongsTo('Customer', 'id_customer');
+        return $this->belongsTo(Customer::class, 'id_customer');
     }
 
     public function user()
     {
-        return $this->belongsTo('User', 'id_user');
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(ConsultationType::class, 'id_consultations_types');
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        if ($status) {
+            $query->where('status', $status);
+        }
+    }
+
+    public function scopeInicio($query, $inicio)
+    {
+        if ($inicio) {
+            $query->where('date', '>=', $inicio);
+        }
+    }
+
+    public function scopeFin($query, $fin)
+    {
+        if ($fin) {
+            $query->where('date', '>=', $fin);
+        }
+    }
+
+    public function scopePaciente($query, $paciente)
+    {
+        if ($paciente) {
+            $query->whereHas('customer', function ($query) use ($paciente) {
+                $query->where('name', 'LIKE', '%' . $paciente . '%');
+            });
+        }
+    }
+
+    public function scopeTipo($query, $tipo)
+    {
+        if ($tipo) {
+            $query->where('id_consultations_types', $tipo);
+        }
     }
 }

@@ -10,6 +10,7 @@ class CustomField extends Model
         'name',
         'type',
         'module',
+        'options',
         'created_by',
     ];
 
@@ -19,6 +20,7 @@ class CustomField extends Model
         'number' => 'Number',
         'date' => 'Date',
         'textarea' => 'Textarea',
+        'select' => 'Seleccionable',
     ];
 
     public static $modules = [

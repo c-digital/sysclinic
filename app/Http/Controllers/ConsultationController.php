@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\CustomField;
 use App\Models\Consultation;
+use App\Models\ConsultationType;
 use App\Models\User;
 
 class ConsultationController extends Controller
@@ -12,10 +13,17 @@ class ConsultationController extends Controller
     public function index()
     {
         $consultations = Consultation::where('created_by', auth()->user()->id)
+            ->status(request()->status)
+            ->inicio(request()->inicio)
+            ->fin(request()->fin)
+            ->paciente(request()->paciente)
+            ->tipo(request()->type)
             ->orderBy('id', 'DESC')
             ->get();
 
-        return view('consultation.index', compact('consultations'));
+        $types = ConsultationType::where('created_by', auth()->user()->id)->get();
+
+        return view('consultation.index', compact('consultations', 'types'));
     }
 
     public function print($id)
@@ -34,17 +42,39 @@ class ConsultationController extends Controller
             ->where('created_by', auth()->user()->id)
             ->get();
 
-        return view('consultation.create', compact('customers', 'users', 'fields'));
+        $consultationTypes = ConsultationType::where('created_by', auth()->user()->id)->get();
+
+        $fields = [];
+
+        if (request()->consultation_type) {
+            $fields = ConsultationType::find(request()->consultation_type);
+            $fields = json_decode($fields->fields);
+        }
+
+        return view('consultation.create', compact('customers', 'users', 'fields', 'consultationTypes'));
     }
 
     public function store()
     {
+        $images = [];
+
+        if (request()->images) {
+            foreach (request()->images as $image) {
+                $item = $image->store('consultations');
+
+                $images[] = $item;
+            }            
+        }
+
         Consultation::create([
             'id_customer' => request()->id_customer,
             'id_user' => request()->id_user,
+            'created_by' => auth()->user()->id,
             'date' => date('Y-m-d'),
             'fields' => json_encode(request()->fields),
-            'status' => 'Pendiente'
+            'status' => 'Pendiente',
+            'id_consultations_types' => request()->id_consutations_types,
+            'images' => json_encode($images)
         ]);
 
         return redirect('/consultation');
@@ -62,17 +92,37 @@ class ConsultationController extends Controller
 
         $consultation = Consultation::find($id);
 
+        if (request()->consultation_type) {
+            $fields = ConsultationType::find(request()->consultation_type);
+            $fields = json_decode($fields->fields);
+        }
+
         return view('consultation.edit', compact('consultation', 'customers', 'users', 'fields'));
     }
 
     public function update()
     {
-        Consultation::find(request()->id)->([
+        $consultation = Consultation::find(request()->id);
+
+        $images = json_decode($consultation->images, true);
+
+        if (request()->images) {
+            foreach (request()->images as $image) {
+                $item = $image->store('consultations');
+
+                $images[] = $item;
+            }            
+        }
+
+
+        $consultation->update([
             'id_customer' => request()->id_customer,
             'id_user' => request()->id_user,
+            'created_by' => auth()->user()->id,
             'date' => date('Y-m-d'),
             'fields' => json_encode(request()->fields),
-            'status' => request()->status
+            'status' => request()->status,
+            'images' => json_encode($images)
         ]);
 
         return redirect('/consultation');

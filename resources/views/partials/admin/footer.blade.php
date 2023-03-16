@@ -173,3 +173,5 @@
         }
     }
 </script>
+
+@yield('js')

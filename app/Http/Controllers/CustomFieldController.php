@@ -67,6 +67,7 @@ class CustomFieldController extends Controller
             $custom_field->name       = $request->name;
             $custom_field->type       = $request->type;
             $custom_field->module     = $request->module;
+            $custom_field->options     = $request->options;
             $custom_field->created_by = \Auth::user()->creatorId();
             $custom_field->save();
 

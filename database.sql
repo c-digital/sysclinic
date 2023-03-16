@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 15, 2023 at 12:34 AM
+-- Generation Time: Mar 16, 2023 at 12:59 AM
 -- Server version: 5.7.41
 -- PHP Version: 7.4.33
 
@@ -1843,12 +1843,40 @@ CREATE TABLE `consultations` (
   `id` int(11) NOT NULL,
   `id_customer` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
+  `id_consultations_types` int(11) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `fields` text,
   `images` text,
   `status` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `consultations`
+--
+
+INSERT INTO `consultations` (`id`, `id_customer`, `id_user`, `id_consultations_types`, `created_by`, `date`, `fields`, `images`, `status`) VALUES
+(6, 2, 11, 2, 2, '2023-03-16', '{\"Campo 1\":\"123\",\"Campo 2\":\"Opcion 1\"}', '[]', 'Pendiente');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `consultations_types`
+--
+
+CREATE TABLE `consultations_types` (
+  `id` int(11) NOT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `name` varchar(256) DEFAULT NULL,
+  `fields` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `consultations_types`
+--
+
+INSERT INTO `consultations_types` (`id`, `created_by`, `name`, `fields`) VALUES
+(2, 2, 'Diabetes', '[{\"name\":\"Campo 1\",\"type\":\"text\",\"options\":\"\"},{\"name\":\"Campo 2\",\"type\":\"select\",\"options\":\"Opcion 1,Opcion 2, Opcion 3\"}]');
 
 -- --------------------------------------------------------
 
@@ -2086,6 +2114,7 @@ CREATE TABLE `custom_fields` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `module` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -2095,13 +2124,9 @@ CREATE TABLE `custom_fields` (
 -- Dumping data for table `custom_fields`
 --
 
-INSERT INTO `custom_fields` (`id`, `name`, `type`, `module`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'Teste', 'text', 'product', 2, '2022-11-10 06:27:45', '2022-11-10 06:27:45'),
-(2, 'Data vencimento', 'date', 'product', 2, '2022-11-10 06:28:20', '2022-11-10 06:28:20'),
-(4, 'Peso', 'text', 'consultation', 2, '2023-03-15 06:14:32', '2023-03-15 06:14:32'),
-(5, 'Altura', 'text', 'consultation', 2, '2023-03-15 06:14:48', '2023-03-15 06:14:48'),
-(6, 'Presion arterial', 'text', 'consultation', 2, '2023-03-15 06:15:00', '2023-03-15 06:15:00'),
-(7, 'Temperatura', 'text', 'consultation', 2, '2023-03-15 06:15:08', '2023-03-15 06:15:08');
+INSERT INTO `custom_fields` (`id`, `name`, `type`, `module`, `options`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 'Teste', 'text', 'product', NULL, 2, '2022-11-10 06:27:45', '2022-11-10 06:27:45'),
+(2, 'Data vencimento', 'date', 'product', NULL, 2, '2022-11-10 06:28:20', '2022-11-10 06:28:20');
 
 -- --------------------------------------------------------
 
@@ -10483,14 +10508,14 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `plan`, `plan_expire_date`, `requested_plan`, `type`, `avatar`, `lang`, `mode`, `created_by`, `default_pipeline`, `delete_status`, `is_active`, `remember_token`, `last_login_at`, `created_at`, `updated_at`, `messenger_color`, `dark_mode`, `active_status`) VALUES
 (1, 'Super Admin', 'contacto@criativedigital.com', NULL, '$2y$10$PlXe7fvukCliq2BpdpwZOeqFdVCnXfSxT.ZWw6g4VImKOsJfa/AX2', NULL, NULL, 0, 'super admin', 'cpvDS0KU_400x400_1667068373.jpg', 'pt', 'light', 0, NULL, 1, 1, NULL, '2023-03-13 10:01:33', '2022-10-26 17:37:48', '2023-03-13 13:01:33', '#2180f3', 0, 0),
-(2, 'company', 'company@example.com', NULL, '$2y$10$ouJRxgD9gkzRqXxac4s5Iu4polkgMtRhi6Q0F8DFCsGIPWiTMA5Aq', 1, NULL, 0, 'company', 'User_font_awesome.svg_1667932474.png', 'es', 'light', 1, 1, 1, 1, NULL, '2023-03-15 02:31:52', '2022-10-26 17:37:54', '2023-03-15 05:31:52', '#2180f3', 0, 0),
+(2, 'company', 'company@example.com', NULL, '$2y$10$ouJRxgD9gkzRqXxac4s5Iu4polkgMtRhi6Q0F8DFCsGIPWiTMA5Aq', 1, NULL, 0, 'company', 'User_font_awesome.svg_1667932474.png', 'es', 'light', 1, 1, 1, 1, NULL, '2023-03-16 00:26:59', '2022-10-26 17:37:54', '2023-03-16 03:26:59', '#2180f3', 0, 0),
 (3, 'accountant', 'accountant@example.com', NULL, '$2y$10$4D6fO0pJmhGTGnrZXOaR6eMJFavnesKCJL4CimxzzPqUBKgltksI6', NULL, NULL, 0, 'accountant', '', 'en', 'light', 2, 1, 1, 1, NULL, '2022-11-02 01:13:07', '2022-10-26 17:37:55', '2022-11-02 04:13:07', '#2180f3', 0, 0),
 (4, 'client', 'client@example.com', NULL, '$2y$10$D1o/wWl1JIeyvwsjia474ufKeUdpOLL4CCRyFFFnXmFWaLupoN8vi', NULL, NULL, 0, 'client', '', 'en', 'light', 2, 1, 1, 1, NULL, NULL, '2022-10-26 17:37:57', '2022-10-26 17:37:57', '#2180f3', 0, 0),
 (5, 'Erick', 'dr.ericksantos@gmail.com', NULL, '$2y$10$edisJbzmPniC1qJSCKIVb.nn327Fz3yGP8Q5h11yEwVFN0JNNes6O', 1, NULL, 0, 'company', 'Logo_1667351386.png', 'pt', 'light', 1, NULL, 1, 1, NULL, '2023-02-27 21:15:38', '2022-10-28 22:14:30', '2023-02-28 00:15:38', '#2180f3', 0, 0),
 (6, 'Erick Santos', 'cliente@cliente.com', NULL, '$2y$10$suoDAUOf/Vaz0BrVwtZRo.6v2GoHZCoNRTB7cf/iq0n9ootFsS1WS', NULL, NULL, 0, 'client', NULL, 'es', 'light', 5, NULL, 1, 1, NULL, '2022-12-28 16:31:53', '2022-11-02 18:59:38', '2022-12-28 19:31:53', '#2180f3', 0, 0),
 (8, 'Victor', 'vico.1245@gmail.com', NULL, '$2y$10$Gh.IlbVdD/cBUJoAT3WQkO.D1Q0vffJLJcZ6DOdGFv1BqnjGBkqq6', 1, NULL, 0, 'company', '', 'es', 'light', 1, NULL, 1, 1, NULL, NULL, '2022-11-18 16:37:32', '2022-11-18 16:37:32', '#2180f3', 0, 0),
 (9, 'Viviana', 'vivisilmat9890@gmail.com', NULL, '$2y$10$CDO801wKYMUGcKw2o0ORfuv6hIhdS3eRng/WzCKlVz969s1F9PnOS', 1, NULL, 0, 'company', '', 'es', 'light', 1, NULL, 1, 1, NULL, NULL, '2022-11-19 18:16:48', '2022-11-19 18:16:48', '#2180f3', 0, 0),
-(10, 'Ferreteria', 'ferreteria@i9finance.com', NULL, '$2y$10$sw1x11zY/cZGVxwWqL4uGuGnTSamR.r6YublNbvP8tH85iCeL4KiC', 1, NULL, 0, 'company', 'Mi-Ferreteria-Logo-small_1668907495.jpg', 'es', 'light', 1, NULL, 1, 1, NULL, '2023-03-15 03:19:37', '2022-11-20 04:18:14', '2023-03-15 06:19:37', '#2180f3', 0, 0),
+(10, 'Ferreteria', 'ferreteria@i9finance.com', NULL, '$2y$10$sw1x11zY/cZGVxwWqL4uGuGnTSamR.r6YublNbvP8tH85iCeL4KiC', 1, NULL, 0, 'company', 'Mi-Ferreteria-Logo-small_1678886037.jpg', 'es', 'light', 1, NULL, 1, 1, NULL, '2023-03-16 02:59:10', '2022-11-20 04:18:14', '2023-03-16 05:59:10', '#2180f3', 0, 0),
 (11, 'Elias Roclas', 'elias.roclas@gmail.com', NULL, '$2y$10$MuBU8P6/YHLw1ZGAEk6SlOaF2dRZxjTb8HyTPfbXdVvy777.DUMJW', 1, NULL, 0, 'company', 'logo-dark (1)_1669233700.png', 'es', 'light', 1, NULL, 1, 1, NULL, '2023-03-13 22:26:52', '2022-11-21 12:24:12', '2023-03-14 01:26:52', '#2180f3', 0, 0),
 (12, 'Erick Santos', 'gerente@gerente.com', NULL, '$2y$10$y5z7bTxW3RgWuLGYahdbauTcwhbm.6zx5Va1uZFUDEENSSaiPV9pC', NULL, NULL, 0, 'Gerente', NULL, 'es', 'light', 5, NULL, 1, 1, NULL, NULL, '2022-11-21 17:05:26', '2022-11-21 17:05:26', '#2180f3', 0, 0),
 (13, 'Usuario', 'usuario@i9finance.com', NULL, '$2y$10$7vkHTpLUOHigffikcz/c4ODe20.M/AQ79tiuESQXe.mGAeu3CTS42', NULL, NULL, 0, 'Vendedor', NULL, 'es', 'light', 10, NULL, 1, 1, NULL, NULL, '2022-11-22 13:59:49', '2022-11-22 13:59:49', '#2180f3', 0, 0),
@@ -11394,6 +11419,12 @@ ALTER TABLE `complaints`
 -- Indexes for table `consultations`
 --
 ALTER TABLE `consultations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `consultations_types`
+--
+ALTER TABLE `consultations_types`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -12536,7 +12567,13 @@ ALTER TABLE `complaints`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `consultations_types`
+--
+ALTER TABLE `consultations_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `contracts`
@@ -12590,7 +12627,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `custom_field_values`
@@ -13226,7 +13263,7 @@ ALTER TABLE `saturation_deductions`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=685;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=574;
 
 --
 -- AUTO_INCREMENT for table `set_salaries`
