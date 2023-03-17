@@ -29,14 +29,20 @@ class ConsultationController extends Controller
     public function print($id)
     {
         $consultation = Consultation::find($id);
-        return view('consultation.print', compact('consultation'));
+
+        $fields = ConsultationType::find($consultation->id_consultations_types);
+        $fields = json_decode($fields->fields);
+
+        return view('consultation.print', compact('consultation', 'fields'));
     }
 
     public function create()
     {
+        $user = \Auth::user();
+        
         $customers = Customer::where('created_by', auth()->user()->id)->get();
 
-        $users = User::get();
+        $users = User::where('created_by', '=', $user->creatorId())->where('type', '!=', 'client')->get();
 
         $fields = CustomField::where('module', 'consultation')
             ->where('created_by', auth()->user()->id)
@@ -82,9 +88,11 @@ class ConsultationController extends Controller
 
     public function edit($id)
     {
+        $user = \Auth::user();
+
         $customers = Customer::where('created_by', auth()->user()->id)->get();
 
-        $users = User::get();
+        $users = User::where('created_by', '=', $user->creatorId())->where('type', '!=', 'client')->get();
 
         $fields = CustomField::where('module', 'consultation')
             ->where('created_by', auth()->user()->id)

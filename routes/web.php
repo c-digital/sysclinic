@@ -24,6 +24,15 @@ Route::get('consultationTypes/delete/{id}', 'ConsultationTypeController@delete')
 Route::post('consultationTypes', 'ConsultationTypeController@store');
 Route::post('consultationTypes/update', 'ConsultationTypeController@update');
 
+Route::get('recipes', 'RecipeController@index');
+Route::get('recipes/create', 'RecipeController@create');
+Route::get('recipes/print/{id}', 'RecipeController@print');
+Route::get('recipes/edit/{id}', 'RecipeController@edit');
+Route::get('recipes/delete/{id}', 'RecipeController@delete');
+
+Route::post('recipes', 'RecipeController@store');
+Route::post('recipes/update', 'RecipeController@update');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

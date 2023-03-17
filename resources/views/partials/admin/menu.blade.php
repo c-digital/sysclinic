@@ -194,6 +194,10 @@
                                 <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'consultationTypes' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
                                     <a class="dash-link" href="/consultationTypes">{{__('Tipo de consultas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                                 </li>
+
+                                <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'recipes' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
+                                    <a class="dash-link" href="/recipes">{{__('Recetas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
+                                </li>
                             </ul>
                         </li>
                     @endif

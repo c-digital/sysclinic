@@ -257,6 +257,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -367,4 +368,115 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body table-border-style table-border-style">
+                    <h5 class=" d-inline-block mb-5">{{__('Consultas')}}</h5>
+
+                    <div class="table-responsive">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th> {{__('Paciente')}}</th>
+                                    <th> {{__('Profesional')}}</th>
+                                    <th> {{__('Fecha')}}</th>
+                                    <th> {{__('Tipo de consulta')}}</th>
+                                    <th>{{__('Estado')}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($consultations as $consultation)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $consultation->customer->name ?? null }}</td>
+                                        <td>{{ $consultation->user->name ?? null }}</td>
+                                        <td>{{ $consultation->date }}</td>
+                                        <td>{{ $consultation->type->name }}</td>
+                                        <td>{{ $consultation->status }}</td>
+                                        <td>
+                                            <a href="{{ '/consultation/print/' . $consultation->id }}" target="_blank" class="btn btn-sm btn-secondary">
+                                                <i class="fa fa-print"></i> Imprimir
+                                            </a>
+
+                                            <a href="{{ '/consultation/edit/' . $consultation->id }}?consultation_type={{ $consultation->id_consultations_types }}" class="btn btn-sm btn-secondary">
+                                                <i class="fa fa-edit"></i> Editar
+                                            </a>
+
+                                            <a href="{{ '/consultation/delete/' . $consultation->id }}" class="btn btn-sm btn-danger confirm-delete">
+                                                <i class="fa fa-trash"></i> Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body table-border-style table-border-style">
+                    <h5 class=" d-inline-block mb-5">{{__('Recetas')}}</h5>
+
+                    <div class="table-responsive">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th> {{__('Paciente')}}</th>
+                                    <th> {{__('Profesional')}}</th>
+                                    <th> {{__('Fecha')}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recipes as $recipe)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $recipe->customer->name ?? null }}</td>
+                                        <td>{{ $recipe->user->name ?? null }}</td>
+                                        <td>{{ $recipe->date }}</td>
+                                        <td>
+                                            <a href="{{ '/recipes/print/' . $recipe->id }}" target="_blank" class="btn btn-sm btn-secondary">
+                                                <i class="fa fa-print"></i> Imprimir
+                                            </a>
+
+                                            <a href="{{ '/recipes/edit/' . $recipe->id }}" class="btn btn-sm btn-secondary">
+                                                <i class="fa fa-edit"></i> Editar
+                                            </a>
+
+                                            <a href="{{ '/recipes/delete/' . $recipe->id }}" class="btn btn-sm btn-danger confirm-delete">
+                                                <i class="fa fa-trash"></i> Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $('.confirm-delete').click(function (event) {
+                if (!confirm('¿Está seguro que desea eliminar?')) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
 @endsection

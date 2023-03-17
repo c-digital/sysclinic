@@ -3,7 +3,7 @@
     // $logo=asset(Storage::url('uploads/logo/'));
     $logo=\App\Models\Utility::get_file('public/uploads/logo/');
 
-    $logo = "/install/storage/public/uploads/logo/";
+    $logo = "/storage/public/uploads/logo/";
 
     $company_logo=Utility::getValByName('company_logo_dark');
     $company_logos=Utility::getValByName('company_logo_light');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consultation;
+use App\Models\Recipe;
 use App\Exports\CustomerExport;
 use App\Imports\CustomerImport;
 use App\Models\Customer;
@@ -141,7 +143,10 @@ class CustomerController extends Controller
         $id       = \Crypt::decrypt($ids);
         $customer = Customer::find($id);
 
-        return view('customer.show', compact('customer'));
+        $consultations = Consultation::where('id_customer', $id)->get();
+        $recipes = Recipe::where('id_customer', $id)->get();
+
+        return view('customer.show', compact('customer', 'consultations', 'recipes'));
     }
 
 
