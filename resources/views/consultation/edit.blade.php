@@ -97,6 +97,11 @@
                                             </textarea>
                                         @endif
 
+                                        @if($field->type == 'textarea')
+                                            <hr>
+                                            <h4>{{ $field->name }}</h4>
+                                        @endif
+
                                         @if($field->type == 'select')
                                             <select name="fields[{{ $field->name }}]" class="form-control">
                                                 <option value=""></option>

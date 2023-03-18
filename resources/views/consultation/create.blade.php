@@ -71,41 +71,57 @@
                         <div class="row">
                             @if($fields)
                                 @foreach($fields as $field)
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                    @if($field->type == 'text')
+                                        <div class="col-md-6">
                                             <label for="{{ $field->name }}">{{ $field->name }}</label>
-
-                                            @if($field->type == 'text')
-                                                <input class="form-control" type="text" name="fields[{{ $field->name }}]">
-                                            @endif
-
-                                            @if($field->type == 'date')
-                                                <input class="form-control" type="date" name="fields[{{ $field->name }}]">
-                                            @endif
-
-                                            @if($field->type == 'email')
-                                                <input class="form-control" type="email" name="fields[{{ $field->name }}]">
-                                            @endif
-
-                                            @if($field->type == 'number')
-                                                <input class="form-control" type="number" name="fields[{{ $field->name }}]">
-                                            @endif
-
-                                            @if($field->type == 'textarea')
-                                                <textarea class="form-control" name="fields[{{ $field->name }}]"></textarea>
-                                            @endif
-
-                                            @if($field->type == 'select')
-                                                <select name="fields[{{ $field->name }}]" class="form-control">
-                                                    <option value=""></option>
-
-                                                    @foreach(explode(',', $field->options) as $option)
-                                                        <option value="{{ $option }}">{{ $option }}</option>
-                                                    @endforeach
-                                                </select>
-                                            @endif
+                                            <input class="form-control" type="text" name="fields[{{ $field->name }}]">
                                         </div>
-                                    </div>
+                                    @endif
+
+                                    @if($field->type == 'date')
+                                        <div class="col-md-6">
+                                            <label for="{{ $field->name }}">{{ $field->name }}</label>
+                                            <input class="form-control" type="date" name="fields[{{ $field->name }}]">
+                                        </div>
+                                    @endif
+
+                                    @if($field->type == 'email')
+                                        <div class="col-md-6">
+                                            <label for="{{ $field->name }}">{{ $field->name }}</label>
+                                            <input class="form-control" type="email" name="fields[{{ $field->name }}]">
+                                        </div>
+                                    @endif
+
+                                    @if($field->type == 'number')
+                                        <div class="col-md-6">
+                                            <label for="{{ $field->name }}">{{ $field->name }}</label>
+                                            <input class="form-control" type="number" name="fields[{{ $field->name }}]">
+                                        </div>
+                                    @endif
+
+                                    @if($field->type == 'textarea')
+                                        <div class="col-md-6">
+                                            <label for="{{ $field->name }}">{{ $field->name }}</label>
+                                            <textarea class="form-control" name="fields[{{ $field->name }}]"></textarea>
+                                        </div>
+                                    @endif
+
+                                    @if($field->type == 'title')
+                                        <h4 class="{{ $loop->iteration != '1' ? 'mt-5' : '' }}">{{ $field->name }}</h4>
+                                    @endif
+
+                                    @if($field->type == 'select')
+                                        <div class="col-md-6">
+                                            <label for="{{ $field->name }}">{{ $field->name }}</label>
+                                            <select name="fields[{{ $field->name }}]" class="form-control">
+                                                <option value=""></option>
+
+                                                @foreach(explode(',', $field->options) as $option)
+                                                    <option value="{{ $option }}">{{ $option }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
                                 @endforeach      
                             @endif                      
                         </div>

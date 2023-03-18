@@ -17,6 +17,7 @@ use App\Models\StockReport;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Utility;
+use App\Models\Session;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -228,6 +229,18 @@ class InvoiceController extends Controller
                 $invoiceProduct->price       = $products[$i]['price'];
                 $invoiceProduct->description = $products[$i]['description'];
                 $invoiceProduct->save();
+
+                $productService = ProductService::find($products[$i]['item']);
+
+                if ($productService->type == 'treatment') {
+                    Session::create([
+                        'id_customer' => $request->customer_id,
+                        'id_product' => $productService->id,
+                        'quantity' => $products[$i]['quantity'],
+                        'realized' => json_encode([]),
+                        'date' => date('Y-m-d')
+                    ]);
+                }
 
                 //inventory management (Quantity)
                 Utility::total_quantity('minus',$invoiceProduct->quantity,$invoiceProduct->product_id);

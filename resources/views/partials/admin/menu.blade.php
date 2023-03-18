@@ -198,6 +198,10 @@
                                 <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'recipes' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
                                     <a class="dash-link" href="/recipes">{{__('Recetas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                                 </li>
+
+                                <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'sessions' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
+                                    <a class="dash-link" href="/sessions">{{__('Sesiones')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
+                                </li>
                             </ul>
                         </li>
                     @endif

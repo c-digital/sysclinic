@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\CustomField;
 use App\Models\Transaction;
 use App\Models\Utility;
+use App\Models\Session;
 use Auth;
 use App\Models\User;
 use App\Models\Plan;
@@ -145,8 +146,9 @@ class CustomerController extends Controller
 
         $consultations = Consultation::where('id_customer', $id)->get();
         $recipes = Recipe::where('id_customer', $id)->get();
+        $sessions = Session::where('id_customer', $id)->get();
 
-        return view('customer.show', compact('customer', 'consultations', 'recipes'));
+        return view('customer.show', compact('customer', 'consultations', 'recipes', 'sessions'));
     }
 
 

@@ -33,6 +33,10 @@ Route::get('recipes/delete/{id}', 'RecipeController@delete');
 Route::post('recipes', 'RecipeController@store');
 Route::post('recipes/update', 'RecipeController@update');
 
+Route::get('sessions', 'SessionController@index');
+Route::get('sessions/realized/{id}', 'SessionController@realized');
+Route::get('sessions/print/{id}', 'SessionController@print');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

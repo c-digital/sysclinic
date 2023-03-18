@@ -55,6 +55,7 @@
                                     <option {{ $field->type == 'date' ? 'selected' : '' }} value="date">Date</option>
                                     <option {{ $field->type == 'number' ? 'selected' : '' }} value="number">Number</option>
                                     <option {{ $field->type == 'select' ? 'selected' : '' }} value="select">Select</option>
+                                    <option {{ $field->type == 'title' ? 'selected' : '' }} value="title">Título</option>
                                 </select>
                             </div>
                         </div>
@@ -113,6 +114,7 @@
                                 <option value="date">Date</option>
                                 <option value="number">Number</option>
                                 <option value="select">Select</option>
+                                <option value="title">Título</option>
                             </select>
                         </div>
                     </div>

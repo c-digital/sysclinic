@@ -59,16 +59,22 @@
             <div class="form-group">
                 <label class="d-block form-label">{{__('Type')}}</label>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" id="customRadio5" name="type" value="product" @if($productService->type=='product') checked @endif onclick="hide_show(this)">
                             <label class="custom-control-label form-label" for="customRadio5">{{__('Product')}}</label>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" id="customRadio6" name="type" value="service" @if($productService->type=='service') checked @endif   onclick="hide_show(this)">
                             <label class="custom-control-label form-label" for="customRadio6">{{__('Service')}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="customRadio7" name="type" value="treatment" @if($productService->type=='treatment') checked @endif   onclick="hide_show(this)">
+                            <label class="custom-control-label form-label" for="customRadio7">{{__('Tratamiento')}}</label>
                         </div>
                     </div>
                 </div>

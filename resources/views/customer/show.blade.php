@@ -373,7 +373,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body table-border-style table-border-style">
-                    <h5 class=" d-inline-block mb-5">{{__('Consultas')}}</h5>
+                    <h5 class=" d-inline-block mb-5">
+                        {{ __('Consultas') }}
+
+                        <a href="/consultation/create" title="{{__('Create')}}" data-title="{{__('Crear consulta')}}" class="btn btn-sm btn-primary">
+                            <i class="ti ti-plus"></i>
+                        </a>
+                    </h5>
 
                     <div class="table-responsive">
                         <table class="table ">
@@ -424,7 +430,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body table-border-style table-border-style">
-                    <h5 class=" d-inline-block mb-5">{{__('Recetas')}}</h5>
+                    <h5 class=" d-inline-block mb-5">
+                        {{__('Recetas')}}
+
+                        <a href="/recipes/create" title="{{__('Create')}}" data-title="{{__('Crear receta')}}" class="btn btn-sm btn-primary">
+                            <i class="ti ti-plus"></i>
+                        </a>
+                    </h5>
 
                     <div class="table-responsive">
                         <table class="table ">
@@ -456,6 +468,54 @@
                                             <a href="{{ '/recipes/delete/' . $recipe->id }}" class="btn btn-sm btn-danger confirm-delete">
                                                 <i class="fa fa-trash"></i> Eliminar
                                             </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body table-border-style table-border-style">
+                    <h5 class=" d-inline-block mb-5">
+                        {{__('Sesiones')}}
+                    </h5>
+
+                    <div class="table-responsive">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th> {{__('Paciente')}}</th>
+                                    <th> {{__('Tratamiento')}}</th>
+                                    <th> {{__('Estado')}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                @foreach($sessions as $session)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $session->customer->name ?? null }}</td>
+                                        <td>{{ $session->product->name ?? null }}</td>
+                                        <td>{{ $session->status }}</td>
+                                        <td>
+                                            <a href="{{ '/sessions/show/' . $session->id }}" class="btn btn-sm btn-secondary">
+                                                <i class="fa fa-list"></i> Información
+                                            </a>
+
+                                            @if($session->count < $session->quantity)
+                                                <a href="{{ '/sessions/realized/' . $session->id }}" class="btn btn-sm btn-secondary realized-session">
+                                                    <i class="fa fa-check"></i> Realizar sesión
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

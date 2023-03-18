@@ -51,6 +51,7 @@
                                     <option value="date">Date</option>
                                     <option value="number">Number</option>
                                     <option value="select">Select</option>
+                                    <option value="title">Título</option>
                                 </select>
                             </div>
                         </div>
@@ -102,6 +103,7 @@
                                 <option value="date">Date</option>
                                 <option value="number">Number</option>
                                 <option value="select">Select</option>
+                                <option value="title">Título</option>
                             </select>
                         </div>
                     </div>
