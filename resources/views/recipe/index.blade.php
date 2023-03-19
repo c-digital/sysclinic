@@ -1,3 +1,5 @@
+@php include_once 'app/functions.php'; @endphp
+
 @extends('layouts.admin')
 
 @section('page-title')
@@ -11,9 +13,11 @@
 
 @section('action-btn')
     <div class="float-end">
-        <a href="/recipes/create" title="{{__('Crear')}}" data-title="{{__('Crear receta')}}" class="btn btn-sm btn-primary">
-            <i class="ti ti-plus"></i>
-        </a>
+        @if(can(510))
+            <a href="/recipes/create" title="{{__('Crear')}}" data-title="{{__('Crear receta')}}" class="btn btn-sm btn-primary">
+                <i class="ti ti-plus"></i>
+            </a>
+        @endif
     </div>
 @endsection
 
@@ -46,13 +50,17 @@
                                                 <i class="fa fa-print"></i> Imprimir
                                             </a>
 
+                                            @if(can(511))
                                             <a href="{{ '/recipes/edit/' . $recipe->id }}" class="btn btn-sm btn-secondary">
                                                 <i class="fa fa-edit"></i> Editar
                                             </a>
+                                            @endif
 
+                                            @if(can(512))
                                             <a href="{{ '/recipes/delete/' . $recipe->id }}" class="btn btn-sm btn-danger confirm-delete">
                                                 <i class="fa fa-trash"></i> Eliminar
                                             </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

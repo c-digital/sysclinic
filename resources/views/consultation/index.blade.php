@@ -1,3 +1,5 @@
+@php include 'app/functions.php'; @endphp
+
 @extends('layouts.admin')
 
 @section('page-title')
@@ -10,11 +12,13 @@
 @endsection
 
 @section('action-btn')
+    @if(can(500))
     <div class="float-end">
         <a href="/consultation/create" title="{{__('Create')}}" data-title="{{__('Create Customer')}}" class="btn btn-sm btn-primary">
             <i class="ti ti-plus"></i>
         </a>
     </div>
+    @endif
 @endsection
 
 @section('content')
@@ -97,13 +101,17 @@
                                                 <i class="fa fa-print"></i> Imprimir
                                             </a>
 
+                                            @if(can(501))
                                             <a href="{{ '/consultation/edit/' . $consultation->id }}?consultation_type={{ $consultation->id_consultations_types }}" class="btn btn-sm btn-secondary">
                                                 <i class="fa fa-edit"></i> Editar
                                             </a>
+                                            @endif
 
+                                            @if(can(502))
                                             <a href="{{ '/consultation/delete/' . $consultation->id }}" class="btn btn-sm btn-danger confirm-delete">
                                                 <i class="fa fa-trash"></i> Eliminar
                                             </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

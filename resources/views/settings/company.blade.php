@@ -17,13 +17,30 @@
    $EmailTemplates   = App\Models\EmailTemplate::all();
    $currantLang =  Utility::languages();
 
-   $db = DB::table('settings')
-        ->where('name', 'company_logo_dark')
-        ->where('created_by', auth()->user()->id)
-        ->first();
+    if (auth()->user()->type == 'company') {
+        $dark = DB::table('settings')
+            ->where('name', 'company_logo_dark')
+            ->where('created_by', auth()->user()->id)
+            ->first();
 
-    $logo_dark = $db ? $db->value : '';
+        $light = DB::table('settings')
+            ->where('name', 'company_logo_light')
+            ->where('created_by', auth()->user()->id)
+            ->first();
+    } else {
+        $dark = DB::table('settings')
+            ->where('name', 'company_logo_dark')
+            ->where('created_by', auth()->user()->created_by)
+            ->first();
 
+        $light = DB::table('settings')
+            ->where('name', 'company_logo_light')
+            ->where('created_by', auth()->user()->created_by)
+            ->first();
+    }
+
+    $logo_dark = $dark ? $dark->value : '';
+    $logo_light = $light ? $light->value : '';
 
 
 

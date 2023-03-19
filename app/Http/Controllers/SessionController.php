@@ -14,7 +14,10 @@ class SessionController extends Controller
             ->get();
 
         $sessions = Session::treatment(request()->treatment)
-            ->Customer(request()->customer)
+            ->whereHas('customer', function ($query) {
+                $query->where('created_by', auth()->user()->id);
+            })
+            ->customer(request()->customer)
             ->date(request()->start, request()->end)
             ->orderByDesc('id')->get();
 

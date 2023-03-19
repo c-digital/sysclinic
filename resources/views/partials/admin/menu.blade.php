@@ -11,6 +11,8 @@
 
     $logo = '/storage/uploads/logo/';
 
+    include_once 'app/functions.php';
+
 
 @endphp
 
@@ -175,7 +177,7 @@
                     <!--------------------- End Dashboard ----------------------------------->
 
                     <!--------------------- Start Dashboard ----------------------------------->
-                    @if( Gate::check('show hrm dashboard') || Gate::check('show project dashboard') || Gate::check('show account dashboard'))
+                    @if(can(499))
                         <li class="dash-item dash-hasmenu
                                 {{ (Request::segment(1) == 'consultation') ?'active dash-trigger':''}}">
 
@@ -183,29 +185,39 @@
                                 <span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
 
                             <ul class="dash-submenu">
+                                @if(can(499))
                                 <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'consultation' && Request::segment(2) == 'create') ? ' active dash-trigger' : ''}}">
                                     <a class="dash-link" href="/consultation/create">{{__('Crear consulta ')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                                 </li>
+                                @endif
 
                                 <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'consultation' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
                                     <a class="dash-link" href="/consultation">{{__('Listado de consultas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                                 </li>
 
+                                @if(can(514))
                                 <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'consultationTypes' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
                                     <a class="dash-link" href="/consultationTypes">{{__('Tipo de consultas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                                 </li>
+                                @endif
 
+                                @if(can(513))
                                 <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'recipes' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
                                     <a class="dash-link" href="/recipes">{{__('Recetas')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                                 </li>
-
-                                <li class="dash-item dash-hasmenu {{ ( Request::segment(1) == 'sessions' && Request::segment(2) == null) ? ' active dash-trigger' : ''}}">
-                                    <a class="dash-link" href="/sessions">{{__('Sesiones')}}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
-                                </li>
+                                @endif
                             </ul>
                         </li>
-                    @endif
+                    @endcan
                     <!--------------------- End Dashboard ----------------------------------->
+
+                    @if(can(508))
+                    <li class="dash-item dash-hasmenu {{ (Request::segment(1) == 'sessions')?'active':''}}">
+                        <a href="/sessions" class="dash-link">
+                            <span class="dash-micon"><i class="ti ti-list"></i></span><span class="dash-mtext">{{__('Sesiones')}}</span>
+                        </a>
+                    </li>
+                    @endif
 
 
                     <!--------------------- Start HRM ----------------------------------->
