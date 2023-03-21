@@ -9,6 +9,10 @@ class ConsultationTypeController extends Controller
     public function index()
     {
         $consultationType = ConsultationType::where('created_by', auth()->user()->id)->get();
+        
+        if (auth()->user()->type != 'company') {
+            $consultationType = ConsultationType::where('created_by', auth()->user()->created_by)->get();
+        }
 
         return view('consultationType.index', compact('consultationType'));
     }

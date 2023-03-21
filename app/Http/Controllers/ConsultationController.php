@@ -49,6 +49,10 @@ class ConsultationController extends Controller
             ->get();
 
         $consultationTypes = ConsultationType::where('created_by', auth()->user()->id)->get();
+        
+        if (auth()->user()->type != 'company') {
+            $consultationTypes = ConsultationType::where('created_by', auth()->user()->created_by)->get();
+        }
 
         $fields = [];
 

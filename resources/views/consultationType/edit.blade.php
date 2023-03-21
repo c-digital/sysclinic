@@ -63,7 +63,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="options">{{ __('Opciones (valores separados por coma)') }}</label>
-                                <input type="text" name="options[]" class="form-control" value="{{ $field->options }}">
+                                <input type="text" name="options[]" class="form-control" value="{{ $field->options ?? null }}">
                             </div>
                         </div>
                         
