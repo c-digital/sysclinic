@@ -34,6 +34,7 @@
         			<th>#</th>
         			<th>Fecha</th>
         			<th>Usuario</th>
+              <th>Comentario</th>
         		</tr>
         	</thead>
 
@@ -43,13 +44,14 @@
         				<td>{{ $loop->iteration }}</td>
         				<td>{{ $realized->date }}</td>
         				<td>{{ App\Models\User::find($realized->user)->name }}</td>
+                <td>{{ $realized->comment ?? '' }}</td>
         			</tr>
         		@endforeach
         	</tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <a href="/sessions/print/{{ $session->id }}" target="_blank" class="btn btn-primary">Imprimir</a>
       </div>
     </div>

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -94,6 +95,8 @@ class CustomerController extends Controller
                 $customer->name            = $request->name;
                 $customer->contact         = $request->contact;
                 $customer->email           = $request->email;
+                $customer->date_birth      = $request->date_birth;
+                $customer->photo           = $request->photo;
                 $customer->tax_number      =$request->tax_number;
                 $customer->created_by      = \Auth::user()->creatorId();
                 $customer->billing_name    = $request->billing_name;
@@ -161,7 +164,11 @@ class CustomerController extends Controller
 
             $customFields = CustomField::where('created_by', '=', \Auth::user()->creatorId())->where('module', '=', 'customer')->get();
 
-            return view('customer.edit', compact('customer', 'customFields'));
+            $current = Carbon::now();
+            $age = $current->diffForHumans($customer->date_birth);
+            $age = str_replace('años después', '', $age);
+
+            return view('customer.edit', compact('customer', 'customFields', 'age'));
         }
         else
         {
@@ -192,8 +199,10 @@ class CustomerController extends Controller
 
             $customer->name             = $request->name;
             $customer->contact          = $request->contact;
-            $customer->email           = $request->email;
-            $customer->tax_number      =$request->tax_number;
+            $customer->email            = $request->email;
+            $customer->date_birth       = $request->date_birth;
+            $customer->photo            = $request->photo;
+            $customer->tax_number       =$request->tax_number;
             $customer->created_by       = \Auth::user()->creatorId();
             $customer->billing_name     = $request->billing_name;
             $customer->billing_country  = $request->billing_country;

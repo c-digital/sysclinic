@@ -51,6 +51,38 @@ class User extends Authenticatable
 
     public $settings;
 
+    public function sessions()
+    {
+        $customers = Customer::where('created_by', auth()->user()->id)->get();
+        
+        if (auth()->user()->type != 'company') {
+            $customers = Customer::where('created_by', auth()->user()->created_by)->get();
+        }
+
+        $count = 0;
+
+        foreach ($customers as $customer) {
+            $sessions = Session::where('id_customer', $customer->id)->get();
+
+            foreach ($sessions as $session) {
+                $count = $count + count(json_decode($session->realized, true));
+            }
+        }
+
+        return $count;
+    }
+
+    public function consultation()
+    {
+        $consultation = Consultation::where('created_by', auth()->user()->id)->get();
+        
+        if (auth()->user()->type != 'company') {
+            $consultation = Consultation::where('created_by', auth()->user()->created_by)->get();
+        }
+
+        return $consultation->count();
+    }
+
     public function getProfileAttribute()
     {
         if(\Storage::exists($this->avatar) && !empty($this->avatar))

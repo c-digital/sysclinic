@@ -219,6 +219,14 @@
                     </li>
                     @endif
 
+                    @if(can(508))
+                    <li class="dash-item dash-hasmenu {{ (Request::segment(1) == 'calendar')?'active':''}}">
+                        <a href="/calendar" class="dash-link">
+                            <span class="dash-micon"><i class="ti ti-calendar"></i></span><span class="dash-mtext">{{__('Calendario')}}</span>
+                        </a>
+                    </li>
+                    @endif
+
 
                     <!--------------------- Start HRM ----------------------------------->
 

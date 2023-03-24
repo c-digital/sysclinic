@@ -24,14 +24,15 @@ class SessionController extends Controller
         return view('sessions.index', compact('sessions', 'products'));
     }
 
-    public function realized($id)
+    public function realized()
     {
-        $session = Session::find($id);
+        $session = Session::find(request()->id);
 
         $realized = json_decode($session->realized, true);
 
         $data['date'] = date('Y-m-d');
         $data['user'] = auth()->user()->id;
+        $data['comment'] = request()->comment;
 
         $realized[] = $data;
         $realized = json_encode($realized);

@@ -229,5 +229,6 @@
 </div>
 @include('partials.admin.footer')
 @include('Chatify::layouts.footerLinks')
+@yield('js')
 </body>
 </html>

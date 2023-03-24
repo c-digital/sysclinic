@@ -403,7 +403,7 @@ class SystemController extends Controller
             $post = $request->all();
 
             $user = \Auth::user();
-            if($request->company_logo_dark->getClientOriginalName())
+            if($request->company_logo_dark)
             {
                 $request->file('company_logo_dark')->storeAs('uploads/logo', $request->company_logo_dark->getClientOriginalName());
 

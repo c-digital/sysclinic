@@ -76,13 +76,14 @@
                                                 <i class="fa fa-list"></i> Información
                                             </a>
 
-                                            @include('sessions.info', compact('session'))
-
                                             @if($session->count < $session->quantity)
-                                                <a href="{{ '/sessions/realized/' . $session->id }}" class="btn btn-sm btn-secondary realized-session">
+                                                <a data-bs-toggle="modal" data-bs-target="#comment_{{ $session->id }}" href="#" class="btn btn-sm btn-secondary realized-session">
                                                     <i class="fa fa-check"></i> Realizar sesión
                                                 </a>
                                             @endif
+
+                                            @include('sessions.info', compact('session'))
+                                            @include('sessions.comment', compact('session'))
                                         </td>
                                     </tr>
                                 @endforeach
@@ -93,22 +94,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        $(document).ready(function () {
-            $('.realized-session').click(function (event) {
-
-                href = $(this).attr('href');
-
-                if (!confirm('¿Está seguro que desea realizar una sesión?')) {
-                    event.preventDefault;
-                    return false;
-                }
-
-                window.location.href = href;
-            })
-        });
-    </script>
 @endsection

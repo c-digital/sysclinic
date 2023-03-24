@@ -34,8 +34,10 @@ Route::post('recipes', 'RecipeController@store');
 Route::post('recipes/update', 'RecipeController@update');
 
 Route::get('sessions', 'SessionController@index');
-Route::get('sessions/realized/{id}', 'SessionController@realized');
+Route::post('sessions/realized', 'SessionController@realized');
 Route::get('sessions/print/{id}', 'SessionController@print');
+
+Route::get('/calendar', 'CalendarController@index');
 
 /*
 |--------------------------------------------------------------------------

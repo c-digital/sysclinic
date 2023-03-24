@@ -35,6 +35,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="form-group">
+                {{Form::label('date_birth',__('Fecha de nacimiento'),['class'=>'form-label'])}}
+                <div class="form-icon-user">
+                    {{Form::date('date_birth',null,array('onchange' => 'calcularEdad(this)', 'class'=>'form-control'))}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="form-group">
+                {{Form::label('age',__('Edad'),['class'=>'form-label'])}}
+                <div class="form-icon-user">
+                    {{Form::text('age',$age,array('id' => 'age', 'class'=>'form-control', 'readonly' => true))}}
+                </div>
+            </div>
+        </div>
+
         @if(!$customFields->isEmpty())
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="tab-pane fade show" id="tab-2" role="tabpanel">

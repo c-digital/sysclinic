@@ -220,9 +220,21 @@
                                                 <i class="ti ti-users"></i>
                                             </div>
                                             <p class="text-muted text-sm mt-4 mb-2">{{__('Total')}}</p>
-                                            <h6 class="mb-3">{{__('Vendors')}}</h6>
-                                            <h3 class="mb-0">{{\Auth::user()->countVenders()}}
+                                            <h6 class="mb-3">{{__('Consultas')}}</h6>
+                                            <h3 class="mb-0">{{\Auth::user()->consultation()}}
                                             </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="theme-avtar bg-danger">
+                                                <i class="fas fa-list"></i>
+                                            </div>
+                                            <p class="text-muted text-sm mt-4 mb-2">{{__('Total')}}</p>
+                                            <h6 class="mb-3">{{__('Sesiones')}}</h6>
+                                            <h3 class="mb-0">{{\Auth::user()->sessions()}} </h3>
                                         </div>
                                     </div>
                                 </div>
@@ -247,18 +259,6 @@
                                             <p class="text-muted text-sm mt-4 mb-2">{{__('Total')}}</p>
                                             <h6 class="mb-3">{{__('Bills')}}</h6>
                                             <h3 class="mb-0">{{\Auth::user()->countBills()}} </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="theme-avtar bg-danger">
-                                                <i class="fas fa-globe-americas"></i>
-                                            </div>
-                                            <p class="text-muted text-sm mt-4 mb-2">{{__('Total')}}</p>
-                                            <h6 class="mb-3">{{__('Sales online')}}</h6>
-                                            <h3 class="mb-0">{{\Auth::user()->salesOnline()}} </h3>
                                         </div>
                                     </div>
                                 </div>
