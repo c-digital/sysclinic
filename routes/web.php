@@ -38,6 +38,8 @@ Route::post('sessions/realized', 'SessionController@realized');
 Route::get('sessions/print/{id}', 'SessionController@print');
 
 Route::get('/calendar', 'CalendarController@index');
+Route::post('/calendar', 'CalendarController@store');
+Route::post('/calendar/update', 'CalendarController@update');
 
 /*
 |--------------------------------------------------------------------------

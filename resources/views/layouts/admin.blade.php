@@ -206,7 +206,7 @@
     <!-- [ Main Content ] end -->
     </div>
 </div>
-<div class="modal fade" id="commonModal" tabindex="-1" role="dialog"
+{{-- <div class="modal fade" id="commonModal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -218,7 +218,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 99999">
     <div id="liveToast" class="toast text-white  fade" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">

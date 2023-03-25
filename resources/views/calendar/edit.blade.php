@@ -1,9 +1,10 @@
-<div class="modal fade" id="calendarCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="calendarEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      {{Form::open(array('url'=>'calendar','method'=>'post'))}}
+      {{Form::open(array('url'=>'calendar/update','method'=>'post'))}}
+        <input type="hidden" name="id" value="">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Crear nuevo evento</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar evento</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -17,11 +18,11 @@
               <label for="productsServices">Productos / servicios</label>
               <div class="row">
                 <div class="col-md-10">
-                  {{ Form::select('productsServices', $productsServices,'', array('class' => 'form-control productServicesCreate')) }}
+                  {{ Form::select('productsServices', $productsServices,'', array('class' => 'form-control productServicesEdit')) }}
                 </div>
 
                 <div class="col-md-2">
-                  <button type="button" class="btn btn-primary btn-block" onclick="createAddProductService()" style="width: 100%">
+                  <button type="button" class="btn btn-primary btn-block" onclick="createEditProductService()" style="width: 100%">
                     <i class="fa fa-plus"></i>
                   </button>
                 </div>
@@ -32,7 +33,7 @@
                   <th>Productos agregados</th>
                 </tr>
 
-                <tbody class="productsServicesCreateTr"></tbody>
+                <tbody class="productsServicesEditTr"></tbody>
               </table>
             </div>
 
