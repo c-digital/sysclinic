@@ -3,10 +3,6 @@
 use App\Models\Utility;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/products/loadData', function (Request $request) {
-    return App\Models\ProductService::find($_GET['id']);
-});
-
 Route::get('consultation', 'ConsultationController@index');
 Route::get('consultation/create', 'ConsultationController@create');
 Route::get('consultation/print/{id}', 'ConsultationController@print');

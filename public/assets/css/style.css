@@ -23613,7 +23613,6 @@ body.theme-4 .team-lists img {
 .fc-event,
 .fc-event:not([href]) {
     color: #fff;
-    border-color: #51459d;
     border-left-width: 4px;
     padding: 5px 10px;
     border-radius: 2px;
@@ -23621,10 +23620,10 @@ body.theme-4 .team-lists img {
     cursor: move;
 }
 
-.fc-event:not([class*="bg-"]),
+/*.fc-event:not([class*="bg-"]),
 .fc-event:not([href]):not([class*="bg-"]) {
     background-color: #51459d;
-}
+}*/
 
 .external-event {
     cursor: move;

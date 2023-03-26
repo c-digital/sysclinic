@@ -9,6 +9,19 @@
     <li class="breadcrumb-item">{{__('Calendario')}}</li>
 @endsection
 
+@section('action-btn')
+    <div class="float-end">
+        <label for="">Filtrar por doctor</label>
+        <select name="id_user" id="filterByDoctor" class="form-control form-control-sm">
+            <option value=""></option>
+
+            @foreach($users as $user)
+                <option {{ $user->id == request()->id_user ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+            @endforeach
+        </select>
+    </div>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -31,6 +44,16 @@
 @push('script-page')
 
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#filterByDoctor').change(function () {
+                id_user = $(this).val();
+
+                if (id_user != '') {
+                    window.location.href = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?id_user=' + id_user;
+                }
+            })
+        });
 
         function createAddProductService() {
             productService = $('.productServicesCreate').val();

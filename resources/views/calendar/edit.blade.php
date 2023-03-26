@@ -68,6 +68,8 @@
           </div>
         </div>
         <div class="modal-footer">
+          <input type="submit" class="btn btn-info" name="consultation" value="Consulta">
+          <input type="submit" class="btn btn-info" name="invoice" value="Factura">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           <button type="submit" class="btn btn-primary">Guardar</button>
         </div>

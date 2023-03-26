@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+include 'app/functions.php';
+
 use App\Models\CustomField;
 use App\Models\Employee;
 use App\Models\ExperienceCertificate;
@@ -100,6 +102,7 @@ class UserController extends Controller
                 $user['lang']       = !empty($default_language) ? $default_language->value : '';
                 $user['created_by'] = \Auth::user()->creatorId();
                 $user['plan']       = Plan::first()->id;
+                $user['color']       = randomColor();
 
                 $user->save();
                 $role_r = Role::findByName('company');

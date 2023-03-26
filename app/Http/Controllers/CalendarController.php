@@ -43,9 +43,12 @@ class CalendarController extends Controller
         $i = 0;
 
         foreach ($data as $item) {
+            $color = User::find($item->id_user)->color;
+
             $result[$i]['id'] = $item->id;
             $result[$i]['title'] = $item->title;
             $result[$i]['start'] = $item->date;
+            $result[$i]['color'] = $color;
             $result[$i]['extendedProps']['datetime'] = $item->date;
             $result[$i]['extendedProps']['id_customer'] = $item->id_customer;
             $result[$i]['extendedProps']['id_user'] = $item->id_user;
@@ -92,6 +95,14 @@ class CalendarController extends Controller
 
     public function update()
     {
+        if (request()->consultation) {
+            return redirect('/consultation/create?id_customer=' . request()->id_customer);
+        }
+
+        if (request()->invoice) {
+            return redirect('/invoice/create/' . request()->id_customer);
+        }
+
         $productsServices = json_encode(request()->productsServices);
 
         if (auth()->user()->type == 'company') {

@@ -27,7 +27,7 @@
                                         <option value=""></option>
 
                                         @foreach($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                            <option {{ $customer->id == request()->id_customer ? 'selected' : '' }} value="{{ $customer->id }}">{{ $customer->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -148,7 +148,16 @@
         $(document).ready(function () {
             $('[name=id_consutations_types]').change(function () {
                 consutation_type = $(this).val();
-                window.location.href = window.location.href + '?consultation_type=' + consutation_type;
+                id_customer = $('[name=id_customer]').val();
+
+                url = window.location.protocol + '//' + window.location.host + window.location.pathname;
+
+                if (id_customer != '') {
+                    window.location.href = url + '?id_customer=' + id_customer + '&consultation_type=' + consutation_type;
+                    return false;
+                }
+
+                window.location.href = url + '?consultation_type=' + consutation_type;
             })
         });
     </script>
