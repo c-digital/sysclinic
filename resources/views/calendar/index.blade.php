@@ -10,16 +10,18 @@
 @endsection
 
 @section('action-btn')
-    <div class="float-end">
-        <label for="">Filtrar por doctor</label>
-        <select name="id_user" id="filterByDoctor" class="form-control form-control-sm">
-            <option value=""></option>
+    @if(auth()->user()->type != 'doctor')
+        <div class="float-end">
+            <label for="">Filtrar por doctor</label>
+            <select name="id_user" id="filterByDoctor" class="form-control form-control-sm">
+                <option value=""></option>
 
-            @foreach($users as $user)
-                <option {{ $user->id == request()->id_user ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
-            @endforeach
-        </select>
-    </div>
+                @foreach($users as $user)
+                    <option {{ $user->id == request()->id_user ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    @endif
 @endsection
 
 @section('content')

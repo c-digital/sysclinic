@@ -19,45 +19,55 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="id_customer">{{ __('Paciente') }}</label>
 
-                                    <select name="id_customer" class="form-control">
-                                        <option value=""></option>
-
-                                        @foreach($customers as $customer)
-                                            <option {{ $customer->id == request()->id_customer ? 'selected' : '' }} value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <div class="col-md-4">
+                                <img id="user-photo" class="img-fluid user-photo" style="width: 220px; cursor: pointer" src="http://sysclinic.net/storage/uploads/avatar/User_font_awesome.svg_1667932474.png" alt="">
+                                <input type="file" id="photo" name="photo" style="display: none">
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="id_user">{{ __('Profesional') }}</label>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="id_customer">{{ __('Paciente') }}</label>
 
-                                    <select name="id_user" class="form-control">
-                                        <option value=""></option>
+                                            <select name="id_customer" class="form-control">
+                                                <option value=""></option>
 
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                                                @foreach($customers as $customer)
+                                                    <option {{ $customer->id == request()->id_customer ? 'selected' : '' }} value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="id_consutations_types">{{ __('Tipo de consulta') }}</label>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="id_user">{{ __('Profesional') }}</label>
 
-                                    <select name="id_consutations_types" class="form-control">
-                                        <option value=""></option>
+                                            <select name="id_user" class="form-control">
+                                                <option value=""></option>
 
-                                        @foreach($consultationTypes as $type)
-                                            <option {{ request()->consultation_type == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
-                                        @endforeach
-                                    </select>
+                                                @foreach($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="id_consutations_types">{{ __('Tipo de consulta') }}</label>
+
+                                            <select name="id_consutations_types" class="form-control">
+                                                <option value=""></option>
+
+                                                @foreach($consultationTypes as $type)
+                                                    <option {{ request()->consultation_type == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>                 
@@ -146,6 +156,25 @@
 @section('js')
     <script>
         $(document).ready(function () {
+
+            $('.user-photo').click(function () {
+                $('[name=photo]').click();
+                return false;
+            });
+
+            $('[name=photo]').change(function () {
+                input = document.getElementById('photo');
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        document.getElementById('user-photo').setAttribute('src', event.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+
             $('[name=id_consutations_types]').change(function () {
                 consutation_type = $(this).val();
                 id_customer = $('[name=id_customer]').val();

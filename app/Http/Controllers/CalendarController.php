@@ -16,7 +16,7 @@ class CalendarController extends Controller
 
         $calendar = Calendar::where('id_company', auth()->user()->created_by)->get();
 
-        $customers = Customer::where('created_by', auth()->user()->created_by)->get();
+        $customers = Customer::user(request()->id_user)->where('created_by', auth()->user()->created_by)->get();
 
         $users = User::where('created_by', '=', auth()->user()->creatorId())->where('type', '!=', 'client')->get();
 
