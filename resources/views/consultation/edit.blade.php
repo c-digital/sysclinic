@@ -22,43 +22,52 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="id_customer">{{ __('Paciente') }}</label>
-
-                                    <select name="id_customer" class="form-control">
-                                        <option value=""></option>
-
-                                        @foreach($customers as $customer)
-                                            <option {{ $customer->id == $consultation->id_customer ? 'selected' : '' }} value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="photo">
+                                    <img id="user-photo" class="img-fluid user-photo" style="width: 220px; cursor: pointer" src="{{ $consultation->photoWithRoute ?? 'http://sysclinic.net/storage/uploads/avatar/User_font_awesome.svg_1667932474.png' }}" alt="">
+                                </label>
+                                <input type="file" id="photo" name="photo" style="display: none">
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="id_user">{{ __('Profesional') }}</label>
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="id_customer">{{ __('Paciente') }}</label>
 
-                                    <select name="id_user" class="form-control">
-                                        <option value=""></option>
+                                        <select name="id_customer" class="form-control">
+                                            <option value=""></option>
 
-                                        @foreach($users as $user)
-                                            <option {{ $user->id == $consultation->id_user ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                            @foreach($customers as $customer)
+                                                <option {{ $customer->id == $consultation->id_customer ? 'selected' : '' }} value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="status">Estado</label>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="id_user">{{ __('Profesional') }}</label>
 
-                                    <select name="status" class="form-control">
-                                        <option {{ $consultation->status == 'Pendiente' ? 'selected' : '' }} value="Pendiente">Pendiente</option>
-                                        <option {{ $consultation->status == 'En atención' ? 'selected' : '' }} value="En atención">En atención</option>
-                                        <option {{ $consultation->status == 'Finalizada' ? 'selected' : '' }} value="Finalizada">Finalizada</option>
-                                    </select>
+                                        <select name="id_user" class="form-control">
+                                            <option value=""></option>
+
+                                            @foreach($users as $user)
+                                                <option {{ $user->id == $consultation->id_user ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="status">Estado</label>
+
+                                        <select name="status" class="form-control">
+                                            <option {{ $consultation->status == 'Pendiente' ? 'selected' : '' }} value="Pendiente">Pendiente</option>
+                                            <option {{ $consultation->status == 'En atención' ? 'selected' : '' }} value="En atención">En atención</option>
+                                            <option {{ $consultation->status == 'Finalizada' ? 'selected' : '' }} value="Finalizada">Finalizada</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>                 

@@ -18,7 +18,8 @@ class Consultation extends Model
         'fields', 
         'images', 
         'status',
-        'id_consultations_types'
+        'id_consultations_types',
+        'photo'
     ];
 
     public function customer()
@@ -70,6 +71,13 @@ class Consultation extends Model
     {
         if ($tipo) {
             $query->where('id_consultations_types', $tipo);
+        }
+    }
+
+    public function getPhotoWithRouteAttribute()
+    {
+        if ($this->photo) {
+            return '/storage/' . $this->photo;
         }
     }
 }

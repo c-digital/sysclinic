@@ -14,9 +14,9 @@ class CalendarController extends Controller
     {
         $initialDate = (new DateTime())->format('Y-m-d');
 
-        $calendar = Calendar::where('id_company', auth()->user()->created_by)->get();
+        $calendar = Calendar::user(request()->id_user)->where('id_company', auth()->user()->created_by)->get();
 
-        $customers = Customer::user(request()->id_user)->where('created_by', auth()->user()->created_by)->get();
+        $customers = Customer::where('created_by', auth()->user()->created_by)->get();
 
         $users = User::where('created_by', '=', auth()->user()->creatorId())->where('type', '!=', 'client')->get();
 
@@ -24,12 +24,12 @@ class CalendarController extends Controller
         $productsServices->prepend('-', '');
 
         if (auth()->user()->type = 'doctor') {
-            $calendar = Calendar::where('id_user', auth()->user()->id)->get();
+            $calendar = Calendar::user(request()->id_user)->where('id_user', auth()->user()->id)->get();
             $customers = Customer::where('created_by', auth()->user()->id)->get();
         }
 
         if (auth()->user()->type = 'company') {
-            $calendar = Calendar::where('id_company', auth()->user()->id)->get();
+            $calendar = Calendar::user(request()->id_user)->where('id_company', auth()->user()->id)->get();
         }
 
         $calendar = $this->calendar($calendar);

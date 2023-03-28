@@ -76,7 +76,7 @@ class ConsultationController extends Controller
             }            
         }
 
-        Consultation::create([
+        $consultation = Consultation::create([
             'id_customer' => request()->id_customer,
             'id_user' => request()->id_user,
             'created_by' => auth()->user()->id,
@@ -86,6 +86,12 @@ class ConsultationController extends Controller
             'id_consultations_types' => request()->id_consutations_types,
             'images' => json_encode($images)
         ]);
+
+        if (request()->photo) {
+            $photo = request()->photo->store('consultations');
+
+            $consultation->update(['photo' => $photo]);
+        }
 
         return redirect('/consultation');
     }

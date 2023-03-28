@@ -21,7 +21,9 @@
                         <div class="row">
 
                             <div class="col-md-4">
-                                <img id="user-photo" class="img-fluid user-photo" style="width: 220px; cursor: pointer" src="http://sysclinic.net/storage/uploads/avatar/User_font_awesome.svg_1667932474.png" alt="">
+                                <label for="photo">
+                                    <img id="user-photo" class="img-fluid user-photo" style="width: 220px; cursor: pointer" src="http://sysclinic.net/storage/uploads/avatar/User_font_awesome.svg_1667932474.png" alt="">
+                                </label>
                                 <input type="file" id="photo" name="photo" style="display: none">
                             </div>
 
@@ -156,11 +158,6 @@
 @section('js')
     <script>
         $(document).ready(function () {
-
-            $('.user-photo').click(function () {
-                $('[name=photo]').click();
-                return false;
-            });
 
             $('[name=photo]').change(function () {
                 input = document.getElementById('photo');

@@ -7,6 +7,10 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+if ($_SERVER['REQUEST_SCHEME'] == 'http') {
+    header('location: https://sysclinic.net');
+}
+
 $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 );
