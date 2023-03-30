@@ -97,20 +97,24 @@
                                         <td>{{ $consultation->type->name }}</td>
                                         <td>{{ $consultation->status }}</td>
                                         <td>
+                                            <a href="{{ '/invoice/create/' . $consultation->customer->id . '?ref=' . $consultation->id }}" target="_blank" class="btn btn-sm btn-info">
+                                                Factura
+                                            </a>                                            
+
                                             <a href="{{ '/consultation/print/' . $consultation->id }}" target="_blank" class="btn btn-sm btn-secondary">
                                                 <i class="fa fa-print"></i> Imprimir
                                             </a>
 
                                             @if(can(501))
-                                            <a href="{{ '/consultation/edit/' . $consultation->id }}?consultation_type={{ $consultation->id_consultations_types }}" class="btn btn-sm btn-secondary">
-                                                <i class="fa fa-edit"></i> Editar
-                                            </a>
+                                                <a href="{{ '/consultation/edit/' . $consultation->id }}?consultation_type={{ $consultation->id_consultations_types }}" class="btn btn-sm btn-secondary">
+                                                    <i class="fa fa-edit"></i> Editar
+                                                </a>
                                             @endif
 
                                             @if(can(502))
-                                            <a href="{{ '/consultation/delete/' . $consultation->id }}" class="btn btn-sm btn-danger confirm-delete">
-                                                <i class="fa fa-trash"></i> Eliminar
-                                            </a>
+                                                <a href="{{ '/consultation/delete/' . $consultation->id }}" class="btn btn-sm btn-danger confirm-delete">
+                                                    <i class="fa fa-trash"></i> Eliminar
+                                                </a>
                                             @endif
                                         </td>
                                     </tr>

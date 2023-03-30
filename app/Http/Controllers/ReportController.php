@@ -33,9 +33,22 @@ use App\Models\Pos;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\SalesOnlineExport;
+use App\Models\Calendar;
 
 class ReportController extends Controller
 {
+    public function calendar()
+    {
+        $calendar = Calendar::patient(request()->patient)
+            ->doctor(request()->doctor)
+            ->status(request()->status)
+            ->start(request()->start)
+            ->end(request()->end)
+            ->get();
+
+        return view('report.calendar', compact('calendar'));
+    }
+
     public function salesOnline(Request $request)
     {
         $sales = Pos::where('online', 1)->get();

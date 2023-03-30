@@ -227,6 +227,14 @@
                     </li>
                     @endif
 
+                    @if(Gate::check('manage customer'))
+                    <li class="dash-item dash-hasmenu {{ (Request::segment(1) == 'customer')?'active':''}}">
+                        <a href="/customer" class="dash-link">
+                            <span class="dash-micon"><i class="ti ti-users"></i></span><span class="dash-mtext">{{__('Clientes')}}</span>
+                        </a>
+                    </li>
+                    @endif
+
 
                     <!--------------------- Start HRM ----------------------------------->
 
@@ -501,13 +509,13 @@
                     <!--------------------- Start Account ----------------------------------->
 
                     @if(\Auth::user()->show_account() == 1)
-                    @if( Gate::check('manage customer') || Gate::check('manage vender') || Gate::check('manage customer') || Gate::check('manage vender') ||
+                    @if( Gate::check('manage vender') || Gate::check('manage customer') || Gate::check('manage vender') ||
                          Gate::check('manage proposal') ||  Gate::check('manage bank account') ||  Gate::check('manage bank transfer') ||  Gate::check('manage invoice')
                          ||  Gate::check('manage revenue') ||  Gate::check('manage credit note') ||  Gate::check('manage bill')  ||  Gate::check('manage payment') ||
                           Gate::check('manage debit note') || Gate::check('manage chart of account') ||  Gate::check('manage journal entry') ||   Gate::check('balance sheet report')
                           || Gate::check('ledger report') ||  Gate::check('trial balance report')  )
                             <li class="dash-item dash-hasmenu
-                                        {{ (Request::route()->getName() == 'print-setting' || Request::segment(1) == 'customer' ||
+                                        {{ (Request::route()->getName() == 'print-setting' ||
                                             Request::segment(1) == 'vender' || Request::segment(1) == 'proposal' || Request::segment(1) == 'bank-account' ||
                                             Request::segment(1) == 'bank-transfer' || Request::segment(1) == 'invoice' || Request::segment(1) == 'revenue' ||
                                             Request::segment(1) == 'credit-note' || Request::segment(1) == 'taxes' || Request::segment(1) == 'product-category' ||
@@ -521,11 +529,6 @@
                                             </span><span class="dash-arrow"><i data-feather="chevron-right"></i></span>
                                         </a>
                                     <ul class="dash-submenu">
-                                    @if(Gate::check('manage customer'))
-                                        <li class="dash-item {{ (Request::segment(1) == 'customer')?'active':''}}">
-                                            <a class="dash-link" href="{{route('customer.index')}}">{{__('Customer')}}</a>
-                                        </li>
-                                    @endif
                                     @if(Gate::check('manage vender'))
                                         <li class="dash-item {{ (Request::segment(1) == 'vender')?'active':''}}">
                                             <a class="dash-link" href="{{ route('vender.index') }}">{{__('Vendor')}}</a>
@@ -877,6 +880,9 @@
                         <ul class="dash-submenu {{ (Request::segment(1) == 'reports')?'show':''}}">
                             <li class="dash-item {{ (Request::route()->getName() == 'reports.onlineSales') ? ' active' : '' }}">
                                 <a class="dash-link" href="{{ route('reports.salesOnline') }}">{{__('Ventas online')}}</a>
+                            </li>
+                            <li class="dash-item {{ (Request::route()->getName() == 'report.calendar' ) ? ' active' : '' }}">
+                                <a class="dash-link" href="{{route('report.calendar')}}">{{__('Calendario')}}</a>
                             </li>
                         </ul>
                     </li>

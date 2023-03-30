@@ -14,7 +14,7 @@ class CalendarController extends Controller
     {
         $initialDate = (new DateTime())->format('Y-m-d');
 
-        $calendar = Calendar::user(request()->id_user)->where('id_company', auth()->user()->created_by)->get();
+        $calendar = Calendar::usuario(request()->id_user)->where('id_company', auth()->user()->created_by)->get();
 
         $customers = Customer::where('created_by', auth()->user()->created_by)->get();
 
@@ -24,12 +24,12 @@ class CalendarController extends Controller
         $productsServices->prepend('-', '');
 
         if (auth()->user()->type = 'doctor') {
-            $calendar = Calendar::user(request()->id_user)->where('id_user', auth()->user()->id)->get();
+            $calendar = Calendar::usuario(request()->id_user)->where('id_user', auth()->user()->id)->get();
             $customers = Customer::where('created_by', auth()->user()->id)->get();
         }
 
         if (auth()->user()->type = 'company') {
-            $calendar = Calendar::user(request()->id_user)->where('id_company', auth()->user()->id)->get();
+            $calendar = Calendar::usuario(request()->id_user)->where('id_company', auth()->user()->id)->get();
         }
 
         $calendar = $this->calendar($calendar);
@@ -53,6 +53,7 @@ class CalendarController extends Controller
             $result[$i]['extendedProps']['id_customer'] = $item->id_customer;
             $result[$i]['extendedProps']['id_user'] = $item->id_user;
             $result[$i]['extendedProps']['id'] = $item->id;
+            $result[$i]['extendedProps']['status'] = $item->status;
 
             $j = 0;
 
@@ -73,7 +74,13 @@ class CalendarController extends Controller
 
     public function store()
     {
-        $productsServices = json_encode(request()->productsServices);
+        if (is_string(request()->productsServices)) {
+            $productsServices[] = request()->productsServices;
+            $productsServices = json_encode($productsServices);
+
+        } else {
+            $productsServices = json_encode(request()->productsServices);
+        }
 
         if (auth()->user()->type == 'company') {
             $id_company = auth()->user()->id;
@@ -87,7 +94,8 @@ class CalendarController extends Controller
             'id_user' => request()->id_user,
             'id_customer' => request()->id_customer,
             'id_company' => $id_company,
-            'date' => request()->datetime
+            'date' => request()->datetime,
+            'status' => 'En espera'
         ]);
 
         return redirect('/calendar');
@@ -117,7 +125,8 @@ class CalendarController extends Controller
             'id_user' => request()->id_user,
             'id_customer' => request()->id_customer,
             'id_company' => $id_company,
-            'date' => request()->datetime
+            'date' => request()->datetime,
+            'status' => request()->status
         ]);
 
         return redirect('/calendar');

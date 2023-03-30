@@ -54,7 +54,17 @@
                 if (id_user != '') {
                     window.location.href = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?id_user=' + id_user;
                 }
-            })
+            });
+
+            $('#calendarEditModal').find('[name=status]').change(function () {
+                status = $(this).val();
+
+                if (status == 'Reprogramado') {
+                    $('.reschedule-container').show();
+                } else {
+                    $('.reschedule-container').hide();
+                }
+            });
         });
 
         function createAddProductService() {
@@ -123,6 +133,7 @@
                 disableDragging: false,
                 eventStartEditable: false,
                 selectable: false,
+                all_day: true,
                 selectMirror: true,
                 editable: true,
                 dayMaxEvents: true,
@@ -137,6 +148,7 @@
                     $('#calendarEditModal').find('[name=id_customer]').val(info.event._def.extendedProps.id_customer).change();
                     $('#calendarEditModal').find('[name=id_user]').val(info.event._def.extendedProps.id_user).change();
                     $('#calendarEditModal').find('[name=datetime]').val(info.event._def.extendedProps.datetime).change();
+                    $('#calendarEditModal').find('[name=status]').val(info.event._def.extendedProps.status).change();
 
                     for (var i = info.event._def.extendedProps.productsServices.length - 1; i >= 0; i--) {
                         $('#calendarEditModal').find('.productsServicesEditTr').html(`

@@ -366,7 +366,7 @@
                                         {{ Form::label('ref_number', __('Ref Number'),['class'=>'form-label']) }}
                                         <div class="form-icon-user">
                                             <span><i class="ti ti-joint"></i></span>
-                                            {{ Form::text('ref_number', '', array('class' => 'form-control')) }}
+                                            {{ Form::text('ref_number', request()->ref ?? '', array('class' => 'form-control')) }}
                                         </div>
                                     </div>
                                 </div>

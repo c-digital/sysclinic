@@ -10,6 +10,15 @@
 @endsection
 
 
+@section('action-btn')
+    <div class="float-end">
+        <a href="/consultation" class="btn btn-sm btn-primary">
+            <i class="ti ti-arrow-left"></i> Volver a listado de consultas
+        </a>
+    </div>
+@endsection
+
+
 @section('content')
     {{ Form::open(array('url' => 'consultation/update','enctype' => "multipart/form-data")) }}
 

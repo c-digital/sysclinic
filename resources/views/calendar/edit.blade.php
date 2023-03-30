@@ -65,9 +65,26 @@
               <label for="id_customer">Fecha y hora</label>
               <input class="form-control" type="datetime-local" name="datetime" required>
             </div>
+
+            <div class="col-md-6 mt-2">
+              <label for="status">Estado</label>
+              <select name="status" class="form-control">
+                <option value=""></option>
+                <option value="Atendido">Atendido</option>
+                <option value="Reprogramado">Reprogramado</option>
+                <option value="Cancelado">Cancelado</option>
+                <option value="En espera">En espera</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 mt-2 reschedule-container">
+              <label for="date_reschedule">Fecha de reprogramación</label>
+              <input class="form-control" type="datetime-local" name="date_reschedule" required>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
+          <input type="submit" class="btn btn-info" name="reschedule" value="Reprogramar">
           <input type="submit" class="btn btn-info" name="consultation" value="Consulta">
           <input type="submit" class="btn btn-info" name="invoice" value="Factura">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
