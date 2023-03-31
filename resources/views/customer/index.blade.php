@@ -141,5 +141,18 @@ $profile=\App\Models\Utility::get_file('uploads/avatar/');
 
             $('#age').val(edad);
         }
+
+        function previewPhoto() {
+            input = document.getElementById('photo');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    document.getElementById('user-photo').setAttribute('src', event.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>   
 @endsection

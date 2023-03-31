@@ -21,9 +21,30 @@ class ConsultationController extends Controller
             ->orderBy('id', 'DESC')
             ->get();
 
+        if (auth()->user()->type != 'company') {
+            $consultations = Consultation::where('created_by', auth()->user()->created_by)
+                ->status(request()->status)
+                ->inicio(request()->inicio)
+                ->fin(request()->fin)
+                ->paciente(request()->paciente)
+                ->tipo(request()->type)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
+
         $types = ConsultationType::where('created_by', auth()->user()->id)->get();
 
         return view('consultation.index', compact('consultations', 'types'));
+    }
+
+    public function show($id)
+    {
+        $consultation = Consultation::find($id);
+
+        $fields = ConsultationType::find($consultation->id_consultations_types);
+        $fields = json_decode($fields->fields);
+
+        return view('consultation.show', compact('consultation', 'fields'));
     }
 
     public function print($id)

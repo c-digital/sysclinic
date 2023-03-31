@@ -47,11 +47,11 @@ return [
     |-------------------------------------
     */
     'pusher' => [
-        'key' => env('PUSHER_APP_KEY'),
-        'secret' => env('PUSHER_APP_SECRET'),
-        'app_id' => env('PUSHER_APP_ID'),
+        'key' => '8ab1df57b3d7a3c9854b',
+        'secret' => '195ba8f80a1ab20d2b7b',
+        'app_id' => '1576731',
         'options' => (array)[
-            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'cluster' => 'us2',
             'useTLS' => env('PUSHER_APP_USETLS'),
         ],
     ],

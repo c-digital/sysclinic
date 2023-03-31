@@ -118,6 +118,14 @@ class CustomerController extends Controller
                 $customer->lang = !empty($default_language) ? $default_language->value : '';
 
                 $customer->save();
+
+                if (request()->photo) {
+                    $photo = request()->photo->store('customers');
+
+                    $customer->update(['photo' => $photo]);
+                }
+
+
                 CustomField::saveData($customer, $request->customField);
             }
             else
@@ -219,6 +227,12 @@ class CustomerController extends Controller
             $customer->shipping_zip     = $request->shipping_zip;
             $customer->shipping_address = $request->shipping_address;
             $customer->save();
+
+            if (request()->photo) {
+                $photo = request()->photo->store('customers');
+
+                $customer->update(['photo' => $photo]);
+            }
 
             CustomField::saveData($customer, $request->customField);
 

@@ -7,8 +7,8 @@ Route::get('consultation', 'ConsultationController@index');
 Route::get('consultation/create', 'ConsultationController@create');
 Route::get('consultation/print/{id}', 'ConsultationController@print');
 Route::get('consultation/edit/{id}', 'ConsultationController@edit');
+Route::get('consultation/show/{id}', 'ConsultationController@show');
 Route::get('consultation/delete/{id}', 'ConsultationController@delete');
-
 Route::post('consultation', 'ConsultationController@store');
 Route::post('consultation/update', 'ConsultationController@update');
 

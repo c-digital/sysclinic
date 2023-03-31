@@ -1,8 +1,17 @@
-{{Form::model($customer,array('route' => array('customer.update', $customer->id), 'method' => 'PUT')) }}
+{{Form::model($customer,array('route' => array('customer.update', $customer->id), 'method' => 'PUT', 'enctype' => "multipart/form-data")) }}
 <div class="modal-body">
 
     <h6 class="sub-title">{{__('Basic Info')}}</h6>
     <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="form-group">
+                <label for="photo">
+                    <img id="user-photo" style="width: 100px; cursor: pointer" class="img-fluid" src="{{ $customer->photoWithRoute ?? 'http://sysclinic.net/storage/uploads/avatar/User_font_awesome.svg_1667932474.png' }}" alt="">
+                </label>
+
+                <input type="file" id="photo" name="photo" style="display: none" onchange="previewPhoto()">
+            </div>
+        </div>
         <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="form-group">
                 {{Form::label('name',__('Name'),array('class'=>'form-label')) }}

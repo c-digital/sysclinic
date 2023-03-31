@@ -5,14 +5,27 @@
     $color = 'white';
     $font_color = 'black';
 
-    $invoice_logo = Utility::getValByName('invoice_logo');
+    if (auth()->user()->type == 'company') {
+        $invoice_logo = DB::table('settings')
+            ->where('created_by', auth()->user()->id)
+            ->where('name', 'company_logo_dark')
+            ->first()
+            ->value;
+    } else {
+        $invoice_logo = DB::table('settings')
+            ->where('created_by', auth()->user()->created_by)
+            ->where('name', 'company_logo_dark')
+            ->first()
+            ->value;
+    }
+
     if(isset($invoice_logo) && !empty($invoice_logo))
     {
         $img = Utility::get_file('invoice_logo/') . $invoice_logo;
-        $img = "https://i9finance.com/storage/invoice_logo/" . $invoice_logo;
+        $img = "https://sysclinic.net/storage/uploads/logo/" . $invoice_logo;
     }
     else{
-        $img          = $logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-dark.png');
+        $img          = '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-dark.png');
     }
 
     $settings = Utility::settings();
@@ -545,7 +558,7 @@
                                 <div data-v-f2a183a6="" class="d-header-inner">
                                     <div data-v-f2a183a6="" class="d-header-50">
                                         <div data-v-f2a183a6="" class="d-header-brand">
-                                            <img src="{{$logo.'/'.(isset($logo_dark) && !empty($logo_dark)?$logo_dark:'logo-dark.png')}}" style="max-width: 250px"/>
+                                            <img src="{{$logo.'/'.(isset($invoice_logo) && !empty($invoice_logo)?$invoice_logo:'logo-dark.png')}}" style="max-width: 250px"/>
                                         </div>
                                         <div data-v-f2a183a6="" class="break-25"></div>
                                         <p data-v-f2a183a6="">@if($settings['company_name']){{$settings['company_name']}}@endif</p>
@@ -580,7 +593,7 @@
                                                 {{!empty($consultation->customer->name)?$consultation->customer->name:''}}<br>
                                                 {{!empty($consultation->customer->email)?$consultation->customer->email:''}}<br>
                                                 {{!empty($consultation->customer->contact)?$consultation->customer->contact:''}}<br>
-                                                {{$consultation->customer->billing_address??$consultation->customer->shipping_address}}<br>
+                                                {{$consultation->customer->billing_address??$consultation->customer->shipping_address??''}}<br>
                                             </p>
                                         </div>
 
@@ -590,7 +603,7 @@
                                                 {{!empty($consultation->user->name)?$consultation->user->name:''}}<br>
                                                 {{!empty($consultation->user->email)?$consultation->user->email:''}}<br>
                                                 {{!empty($consultation->user->contact)?$consultation->user->contact:''}}<br>
-                                                {{$consultation->user->billing_address??$consultation->user->shipping_address}}<br>
+                                                {{$consultation->user->billing_address??$consultation->user->shipping_address??''}}<br>
                                             </p>
                                         </div>
                                     </div>
@@ -608,7 +621,7 @@
                                                     <div class="d-table-tr" style="border-bottom:1px solid {{$color}};">
                                                         @foreach($field as $item)                                                        
                                                             <div class="d-table-td w-7">
-                                                                <pre data-v-f2a183a6="">{{ json_decode($consultation->fields, true)[$item->name] }}</pre>
+                                                                <pre data-v-f2a183a6="">{{ json_decode($consultation->fields, true)[$item->name] ?? '' }}</pre>
                                                             </div>                                                        
                                                         @endforeach
                                                     </div>

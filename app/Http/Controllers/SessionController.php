@@ -21,6 +21,16 @@ class SessionController extends Controller
             ->date(request()->start, request()->end)
             ->orderByDesc('id')->get();
 
+        if (auth()->user()->type != 'company') {
+            $sessions = Session::treatment(request()->treatment)
+                ->whereHas('customer', function ($query) {
+                    $query->where('created_by', auth()->user()->created_by);
+                })
+                ->customer(request()->customer)
+                ->date(request()->start, request()->end)
+                ->orderByDesc('id')->get();
+        }
+
         return view('sessions.index', compact('sessions', 'products'));
     }
 

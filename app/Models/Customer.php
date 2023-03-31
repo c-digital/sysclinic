@@ -48,6 +48,13 @@ class Customer extends Authenticatable
         'remember_token',
     ];
 
+    public function getPhotoWithRouteAttribute()
+    {
+        if ($this->photo) {
+            return '/storage/' . $this->photo;
+        }
+    }
+
 
     public $settings;
 

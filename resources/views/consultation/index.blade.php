@@ -105,6 +105,10 @@
                                                 <i class="fa fa-print"></i> Imprimir
                                             </a>
 
+                                            <a href="{{ '/consultation/show/' . $consultation->id }}?consultation_type={{ $consultation->id_consultations_types }}" class="btn btn-sm btn-secondary">
+                                                    <i class="fa fa-edit"></i> Ver
+                                                </a>
+
                                             @if(can(501))
                                                 <a href="{{ '/consultation/edit/' . $consultation->id }}?consultation_type={{ $consultation->id_consultations_types }}" class="btn btn-sm btn-secondary">
                                                     <i class="fa fa-edit"></i> Editar
