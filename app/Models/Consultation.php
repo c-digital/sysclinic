@@ -76,8 +76,12 @@ class Consultation extends Model
 
     public function getPhotoWithRouteAttribute()
     {
-        if ($this->photo) {
-            return '/storage/' . $this->photo;
+        $customer = Customer::find($this->id_customer);
+
+        if ($customer->photo) {
+            return '/storage/' . $customer->photo;
         }
+
+        return 'http://sysclinic.net/storage/uploads/avatar/User_font_awesome.svg_1667932474.png';
     }
 }

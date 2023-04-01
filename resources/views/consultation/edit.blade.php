@@ -20,6 +20,7 @@
 
 
 @section('content')
+
     {{ Form::open(array('url' => 'consultation/update','enctype' => "multipart/form-data")) }}
 
         <input type="hidden" name="id" value="{{ $consultation->id }}">
@@ -158,4 +159,58 @@
 
         <input type="submit" value="Guardar cambios" class="btn btn-primary">
     {{ Form::close() }}
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+
+            $('[name=photo]').change(function () {
+                input = document.getElementById('photo');
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        document.getElementById('user-photo').setAttribute('src', event.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+
+            $('[name=id_consutations_types]').change(function () {
+                consutation_type = $(this).val();
+                id_customer = $('[name=id_customer]').val();
+
+                url = window.location.protocol + '//' + window.location.host + window.location.pathname;
+
+                if (id_customer != '') {
+                    window.location.href = url + '?id_customer=' + id_customer + '&consultation_type=' + consutation_type;
+                    return false;
+                }
+
+                window.location.href = url + '?consultation_type=' + consutation_type;
+            });
+
+            $('[name=id_customer]').change(function () {
+                value = $(this).val();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/consultation/get-photo/' + value,
+                    success: function (response) {
+                        if (response) {
+                            $('#user-photo').attr('src', '/storage/' + response);
+                            return false;
+                        }
+
+                        $('#user-photo').attr('src', 'http://sysclinic.net/storage/uploads/avatar/User_font_awesome.svg_1667932474.png');
+                    },
+                    error: function (error) {
+                        $('body').html(error.responseText);
+                    }
+                })
+            })
+        });
+    </script>
 @endsection

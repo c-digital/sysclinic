@@ -416,72 +416,21 @@ class SystemController extends Controller
 
             if($request->company_logo_light)
             {
-//                $request->validate(
-//                    [
-//                        'company_logo_light' => 'image|mimes:png|max:20480',
-//                    ]
-//                );
-//                $logoName     = $user->id . '-logo-light.png';
-//                $path         = $request->file('company_logo_light')->storeAs('uploads/logo/', $logoName);
-//                $company_logo = !empty($request->company_logo_light) ? $logoName : 'logo-light.png';
+                $request->file('company_logo_light')->storeAs('uploads/logo', $request->company_logo_light->getClientOriginalName());
 
-                $validation =[
-                    'mimes:'.'png',
-                    'max:'.'20480',
-                ];
-                $logoName = 'logo-light.png';
-                $dir = 'uploads/logo';
-                $path = Utility::upload_file($request,'company_logo_light',$logoName,$dir,$validation);
-                if($path['flag'] == 1){
-                    $logo = $path['url'];
-                }else{
-                    return redirect()->back()->with('error', __($path['msg']));
-                }
-
-
-                \DB::insert(
-                    'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ', [
-                                                                                                                                                 $logoName,
-                                                                                                                                                 'company_logo_light',
-                                                                                                                                                 \Auth::user()->creatorId(),
-                                                                                                                                             ]
+                Utility::updateOrCreate(
+                    ['name' => 'company_logo_light', 'created_by' => auth()->user()->id],
+                    ['value' => $request->company_logo_light->getClientOriginalName()]
                 );
             }
 
             if($request->company_favicon)
             {
-//                $request->validate(
-//                    [
-//                        'company_favicon' => 'image|mimes:png|max:20480',
-//                    ]
-//                );
-//                $favicon = $user->id . '_favicon.png';
-//                $path    = $request->file('company_favicon')->storeAs('uploads/logo/', $favicon);
-//
-//                $company_favicon = !empty($request->favicon) ? $favicon : 'favicon.png';
+                $request->file('company_favicon')->storeAs('uploads/logo', $request->company_favicon->getClientOriginalName());
 
-                $validation =[
-                    'mimes:'.'png',
-                    'max:'.'20480',
-                ];
-
-                $favicon = 'favicon.png';
-                $dir = 'uploads/logo/';
-                $path = Utility::upload_file($request,'company_favicon',$favicon,$dir,$validation);
-                if($path['flag'] == 1){
-//                    $favicon = $path['url'];
-                }else{
-                    return redirect()->back()->with('error', __($path['msg']));
-                }
-
-
-
-                \DB::insert(
-                    'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ', [
-                                                                                                                                                 $favicon,
-                                                                                                                                                 'company_favicon',
-                                                                                                                                                 \Auth::user()->creatorId(),
-                                                                                                                                             ]
+                Utility::updateOrCreate(
+                    ['name' => 'company_favicon', 'created_by' => auth()->user()->id],
+                    ['value' => $request->company_favicon->getClientOriginalName()]
                 );
             }
 

@@ -184,6 +184,26 @@
                 }
 
                 window.location.href = url + '?consultation_type=' + consutation_type;
+            });
+
+            $('[name=id_customer]').change(function () {
+                value = $(this).val();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/consultation/get-photo/' + value,
+                    success: function (response) {
+                        if (response) {
+                            $('#user-photo').attr('src', '/storage/' + response);
+                            return false;
+                        }
+
+                        $('#user-photo').attr('src', 'http://sysclinic.net/storage/uploads/avatar/User_font_awesome.svg_1667932474.png');
+                    },
+                    error: function (error) {
+                        $('body').html(error.responseText);
+                    }
+                })
             })
         });
     </script>

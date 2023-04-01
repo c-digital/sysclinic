@@ -97,7 +97,7 @@
                                         <td>{{ $consultation->type->name }}</td>
                                         <td>{{ $consultation->status }}</td>
                                         <td>
-                                            <a href="{{ '/invoice/create/' . $consultation->customer->id . '?ref=' . $consultation->id }}" target="_blank" class="btn btn-sm btn-info">
+                                            <a href="{{ '/invoice/create/' . $consultation->id_customer . '?ref=' . $consultation->id }}" target="_blank" class="btn btn-sm btn-info">
                                                 Factura
                                             </a>                                            
 

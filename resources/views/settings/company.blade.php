@@ -27,6 +27,11 @@
             ->where('name', 'company_logo_light')
             ->where('created_by', auth()->user()->id)
             ->first();
+
+        $favicon = DB::table('settings')
+            ->where('name', 'company_favicon')
+            ->where('created_by', auth()->user()->id)
+            ->first();
     } else {
         $dark = DB::table('settings')
             ->where('name', 'company_logo_dark')
@@ -37,10 +42,20 @@
             ->where('name', 'company_logo_light')
             ->where('created_by', auth()->user()->created_by)
             ->first();
+
+        $favicon = DB::table('settings')
+            ->where('name', 'company_favicon')
+            ->where('created_by', auth()->user()->created_by)
+            ->first();
     }
 
-    $logo_dark = $dark ? $dark->value : '';
-    $logo_light = $light ? $light->value : '';
+    $logo_dark = $dark ? $dark->value : 'logo-dark.png';
+    $logo_light = $light ? $light->value : 'logo-light.png';
+    $favicon = $favicon ? $favicon->value : 'favicon.png';
+
+    $logo_dark = '/storage/uploads/logo/' . $logo_dark;
+    $logo_light = '/storage/uploads/logo/' . $logo_light;
+    $favicon = '/storage/uploads/logo/' . $favicon;
 
 
 
@@ -312,7 +327,7 @@
                                         <div class="card-body pt-0">
                                             <div class=" setting-card">
                                                 <div class="logo-content mt-4">
-                                                    <img id="image" src="{{$logo.'/'.(isset($logo_dark) && !empty($logo_dark)?$logo_dark:'logo-dark.png')}}"
+                                                    <img id="image" src="{{ $logo_dark }}"
                                                          class="big-logo">
                                                 </div>
                                                 <div class="choose-files mt-5">
@@ -344,7 +359,7 @@
                                         <div class="card-body pt-0">
                                             <div class="setting-card">
                                                 <div class="logo-content mt-4">
-                                                    <img id="image1" src="{{$logo.'/'.(isset($logo_light) && !empty($logo_light)?$logo_light:'logo-light.png')}}"
+                                                    <img id="image1" src="{{ $logo_light }}"
                                                          class="big-logo img_setting">
                                                 </div>
                                                 <div class="choose-files mt-5">
@@ -376,7 +391,7 @@
                                         <div class="card-body pt-0">
                                             <div class=" setting-card">
                                                 <div class="logo-content mt-4">
-                                                    <img id="image2" src="{{(!empty($company_favicon)?$logo.'/'. $company_favicon:$logo.'/'. 'favicon.png')}}" width="50px"
+                                                    <img id="image2" src="{{ $favicon }}" width="50px"
                                                          class="img_setting">
 
 {{--                                                    <img id="image2" src="{{$logo.'/'.('favicon.png')}}" width="50px" class="img_setting">--}}

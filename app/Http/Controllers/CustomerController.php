@@ -70,7 +70,7 @@ class CustomerController extends Controller
             $rules = [
                 'name' => 'required',
                 'contact' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
-                'email' => 'required|email|unique:customers',
+                'email' => 'required|email'
             ];
 
 

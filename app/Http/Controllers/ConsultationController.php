@@ -172,4 +172,13 @@ class ConsultationController extends Controller
         Consultation::find($id)->delete();
         return redirect('consultation');
     }
+
+    public function getPhoto($id)
+    {
+        $customer = Customer::find($id);
+
+        if ($customer) {
+            return $customer->photo;
+        }
+    }
 }

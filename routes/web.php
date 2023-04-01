@@ -11,6 +11,7 @@ Route::get('consultation/show/{id}', 'ConsultationController@show');
 Route::get('consultation/delete/{id}', 'ConsultationController@delete');
 Route::post('consultation', 'ConsultationController@store');
 Route::post('consultation/update', 'ConsultationController@update');
+Route::get('consultation/get-photo/{id}', 'ConsultationController@getPhoto');
 
 Route::get('consultationTypes', 'ConsultationTypeController@index');
 Route::get('consultationTypes/create', 'ConsultationTypeController@create');

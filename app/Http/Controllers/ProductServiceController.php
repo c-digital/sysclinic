@@ -85,7 +85,7 @@ class ProductServiceController extends Controller
 
             $rules = [
                 'name' => 'required',
-                'sku' => 'required|unique:product_services,sku',
+                'sku' => 'required',
                 'sale_price' => 'required|numeric',
                 'purchase_price' => 'required|numeric',
                 'category_id' => 'required',
@@ -199,7 +199,6 @@ class ProductServiceController extends Controller
 
                 $rules = [
                     'name' => 'required',
-                    'sku' => 'required', Rule::unique('product_services')->ignore($productService->id),
                     'sale_price' => 'required|numeric',
                     'purchase_price' => 'required|numeric',
                     'category_id' => 'required',
