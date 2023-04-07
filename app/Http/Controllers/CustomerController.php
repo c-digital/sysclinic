@@ -99,6 +99,7 @@ class CustomerController extends Controller
                 $customer->photo           = $request->photo;
                 $customer->tax_number      =$request->tax_number;
                 $customer->created_by      = \Auth::user()->creatorId();
+                $customer->id_company      = \Auth::user()->creatorId();
                 $customer->billing_name    = $request->billing_name;
                 $customer->billing_country = $request->billing_country;
                 $customer->billing_state   = $request->billing_state;
@@ -212,6 +213,7 @@ class CustomerController extends Controller
             $customer->photo            = $request->photo;
             $customer->tax_number       =$request->tax_number;
             $customer->created_by       = \Auth::user()->creatorId();
+            $customer->id_company       = \Auth::user()->creatorId();
             $customer->billing_name     = $request->billing_name;
             $customer->billing_country  = $request->billing_country;
             $customer->billing_state    = $request->billing_state;

@@ -13,6 +13,7 @@ class Session extends Model
     protected $fillable = [
     	'id_customer',
     	'id_product',
+        'id_company',
     	'quantity',
     	'realized',
     	'date'

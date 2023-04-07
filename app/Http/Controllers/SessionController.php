@@ -10,22 +10,18 @@ class SessionController extends Controller
     public function index()
     {
         $products = ProductService::where('type', 'treatment')
-            ->where('created_by', auth()->user()->id)
+            ->where('id_company', auth()->user()->creatorId())
             ->get();
 
         $sessions = Session::treatment(request()->treatment)
-            ->whereHas('customer', function ($query) {
-                $query->where('created_by', auth()->user()->id);
-            })
+            ->where('id_company', auth()->user()->creatorId())
             ->customer(request()->customer)
             ->date(request()->start, request()->end)
             ->orderByDesc('id')->get();
 
         if (auth()->user()->type != 'company') {
             $sessions = Session::treatment(request()->treatment)
-                ->whereHas('customer', function ($query) {
-                    $query->where('created_by', auth()->user()->created_by);
-                })
+                ->where('id_company', auth()->user()->created_by)
                 ->customer(request()->customer)
                 ->date(request()->start, request()->end)
                 ->orderByDesc('id')->get();

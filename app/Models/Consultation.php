@@ -13,6 +13,7 @@ class Consultation extends Model
     protected $fillable = [
         'id_customer', 
         'id_user',
+        'id_company',
         'created_by',
         'date', 
         'fields', 

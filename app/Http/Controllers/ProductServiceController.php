@@ -115,6 +115,7 @@ class ProductServiceController extends Controller
             $productService->type           = $request->type;
             $productService->category_id    = $request->category_id;
             $productService->variation_id    = $request->variation_id;
+            $productService->id_company    = auth()->user()->created_by;
 //            if(isset($request->pro_image))
 //            {
 //                $productService->pro_image = $fileNameToStore;
@@ -227,6 +228,7 @@ class ProductServiceController extends Controller
                 $productService->type           = $request->type;
                 $productService->category_id    = $request->category_id;
                 $productService->variation_id    = $request->variation_id;
+                $productService->id_company    = auth()->user()->created_by;
 //                if(isset($request->pro_image))
 //                {
 //                    $productService->pro_image = $fileNameToStore;

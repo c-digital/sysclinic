@@ -112,7 +112,7 @@ class User extends Authenticatable
             return $this->created_by;
         }
     }
-
+    
     public function ownerId()
     {
         if($this->type == 'company' || $this->type == 'super admin')

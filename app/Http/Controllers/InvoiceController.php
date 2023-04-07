@@ -236,6 +236,7 @@ class InvoiceController extends Controller
                     Session::create([
                         'id_customer' => $request->customer_id,
                         'id_product' => $productService->id,
+                        'id_company' => auth()->user()->creatorId(),
                         'quantity' => $products[$i]['quantity'],
                         'realized' => json_encode([]),
                         'date' => date('Y-m-d')

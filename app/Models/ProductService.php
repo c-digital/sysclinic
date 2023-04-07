@@ -19,7 +19,8 @@ class ProductService extends Model
         'unit_id',
         'type',
         'created_by',
-        'variation_id'
+        'variation_id',
+        'id_company'
     ];
 
     protected $casts = ['variation_id' => 'array'];

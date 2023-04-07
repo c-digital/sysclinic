@@ -12,7 +12,7 @@ class ConsultationController extends Controller
 {
     public function index()
     {
-        $consultations = Consultation::where('created_by', auth()->user()->id)
+        $consultations = Consultation::where('id_company', auth()->user()->creatorId())
             ->status(request()->status)
             ->inicio(request()->inicio)
             ->fin(request()->fin)
@@ -22,7 +22,7 @@ class ConsultationController extends Controller
             ->get();
 
         if (auth()->user()->type != 'company') {
-            $consultations = Consultation::where('created_by', auth()->user()->created_by)
+            $consultations = Consultation::where('id_company', auth()->user()->creatorId())
                 ->status(request()->status)
                 ->inicio(request()->inicio)
                 ->fin(request()->fin)
@@ -100,6 +100,7 @@ class ConsultationController extends Controller
         $consultation = Consultation::create([
             'id_customer' => request()->id_customer,
             'id_user' => request()->id_user,
+            'id_company' => auth()->user()->creatorId(),
             'created_by' => auth()->user()->id,
             'date' => date('Y-m-d'),
             'fields' => json_encode(request()->fields),
@@ -158,6 +159,7 @@ class ConsultationController extends Controller
             'id_customer' => request()->id_customer,
             'id_user' => request()->id_user,
             'created_by' => auth()->user()->id,
+            'id_company' => auth()->user()->creatorId(),
             'date' => date('Y-m-d'),
             'fields' => json_encode(request()->fields),
             'status' => request()->status,
