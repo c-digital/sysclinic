@@ -54,7 +54,7 @@
                         </div>
                         <div class="card shadow zindex-100 mb-0">
                             @if($form->is_active == 1)
-                                {{Form::open(array('route'=>array('form.view.store'),'method'=>'post'))}}
+                                {{Form::open(array('route'=>array('form.view.store'),'enctype' => "multipart/form-data",'method'=>'post'))}}
                                 <div class="card-body px-md-5 py-5">
                                     <div class="mb-4">
                                         <h6 class="h3">{{$form->name}}</h6>
@@ -86,6 +86,31 @@
                                                 <div class="form-group">
                                                     {{ Form::label('field-'.$objField->id, __($objField->name),['class'=>'form-label']) }}
                                                     {{ Form::textarea('field['.$objField->id.']', null, array('class' => 'form-control','required'=>'required','id'=>'field-'.$objField->id)) }}
+                                                </div>
+                                            @elseif($objField->type == 'select')
+                                                <div class="form-group">
+                                                    {{ Form::label('field-'.$objField->id, __($objField->name),['class'=>'form-label']) }}
+                                                    <select name="field[{{ $objField->id }}]" class="form-control" required id="field-{{$objField->id}}">
+                                                        <option value=""></option>
+                                                        @foreach(explode(',', $objField->options) as $option)
+                                                            <option value="{{ $option }}">{{ $option }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            @elseif($objField->type == 'multiple-select')
+                                                <div class="form-group">
+                                                    {{ Form::label('field-'.$objField->id, __($objField->name),['class'=>'form-label']) }}
+                                                    <select name="field[{{ $objField->id }}]" class="form-control select2" multiple required id="field-{{$objField->id}}">
+                                                        <option value=""></option>
+                                                        @foreach(explode(',', $objField->options) as $option)
+                                                            <option value="{{ $option }}">{{ $option }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            @elseif($objField->type == 'file')
+                                                <div class="form-group">
+                                                    {{ Form::label('field-'.$objField->id, __($objField->name),['class'=>'form-label']) }}<br>
+                                                    <input type="file" name="field[{{ $objField->id }}]" required id="field-{{ $objField->id }}">
                                                 </div>
                                             @endif
                                         @endforeach

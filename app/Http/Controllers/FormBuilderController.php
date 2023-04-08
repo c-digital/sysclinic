@@ -207,6 +207,7 @@ class FormBuilderController extends Controller
             {
                 $names = $request->name;
                 $types = $request->type;
+                $options = $request->options;
 
                 foreach($names as $key => $value)
                 {
@@ -218,6 +219,7 @@ class FormBuilderController extends Controller
                                 'form_id' => $formbuilder->id,
                                 'name' => $value,
                                 'type' => $types[$key],
+                                'options' => $options[$key],
                                 'created_by' => $usr->creatorId(),
                             ]
                         );
@@ -294,6 +296,7 @@ class FormBuilderController extends Controller
                     [
                         'name' => $request->name,
                         'type' => $request->type,
+                        'options' => $request->options,
                     ]
                 );
 
@@ -399,7 +402,6 @@ class FormBuilderController extends Controller
     // For Front Side View
     public function formView($code)
     {
-
         if(!empty($code))
         {
             $form = FormBuilder::where('code', 'LIKE', $code)->first();
@@ -440,6 +442,11 @@ class FormBuilderController extends Controller
             foreach($request->field as $key => $value)
             {
                 $arrFieldResp[FormField::find($key)->name] = (!empty($value)) ? $value : '-';
+
+                if (gettype($value) == 'object') {
+                    $value = $value->store('form');
+                    $arrFieldResp[FormField::find($key)->name] = (!empty($value)) ? $value : '-';
+                }
             }
 
             // store response

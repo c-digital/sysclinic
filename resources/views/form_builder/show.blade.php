@@ -1,15 +1,18 @@
 @extends('layouts.admin')
+
 @section('page-title')
     {{ $formBuilder->name.__("'s Form Field") }}
 @endsection
-@push('script-page')
 
+@push('script-page')
 @endpush
+
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{__('Dashboard')}}</a></li>
     <li class="breadcrumb-item"><a href="{{route('form_builder.index')}}">{{__('Form Builder')}}</a></li>
     <li class="breadcrumb-item">{{__('Add Field')}}</li>
 @endsection
+
 @section('action-btn')
     @can('create form field')
         <div class="float-end">
@@ -67,4 +70,18 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+<script>
+    function showOption(element) {
+        value = $(element).val();
+        
+        if (value == 'select' || value == 'multiple-select') {
+            $('.options-container').removeAttr('style');
+        } else {
+            $('.options-container').attr('style', 'display: none');
+        }
+    }
+</script>
 @endsection

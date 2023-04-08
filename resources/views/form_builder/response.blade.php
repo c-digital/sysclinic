@@ -61,7 +61,13 @@
                                 @endphp
                                 <tr>
                                     @foreach(array_values($firstThreeElements) as $ans)
-                                        <td>{{$ans}}</td>
+                                        <td>
+                                            @if(Storage::exists($ans))
+                                                <a target="_blank" href="/storage/{{ $ans }}">{{ $ans }}</a>
+                                            @else
+                                                {{$ans}}
+                                            @endif
+                                        </td>
                                     @endforeach
                                     <td class="Action">
                                         <div class="action-btn bg-warning ms-2">

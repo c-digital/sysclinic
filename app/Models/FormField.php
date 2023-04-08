@@ -10,6 +10,7 @@ class FormField extends Model
         'form_id',
         'name',
         'type',
+        'options',
         'created_by',
     ];
 }

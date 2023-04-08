@@ -19,6 +19,9 @@ class FormBuilder extends Model
         'number' => 'Number',
         'date' => 'Date',
         'textarea' => 'Textarea',
+        'select' => 'Select',
+        'multiple-select' => 'Select multiple',
+        'file' => 'Archivo'
     ];
 
     public function form_field()

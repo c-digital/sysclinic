@@ -1144,13 +1144,13 @@ class InvoiceController extends Controller
 //        $company_logo = Utility::getValByName('company_logo_dark');
 //        $img          = asset($logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-dark.png'));
 
-        $logo         = 'https://i9finance.com/storage/invoice_logo/';
+        $logo         = '/storage/uploads/logo/';
         $company_logo = Utility::getValByName('company_logo_dark');
-        $settings_data = \App\Models\Utility::settingsById($invoice->created_by);
-        $invoice_logo = $settings_data['invoice_logo'];
+        $invoice_logo = Utility::getValByName('invoice_logo');
         if(isset($invoice_logo) && !empty($invoice_logo))
         {
-            $img = 'https://i9finance.com/storage/invoice_logo/' . $invoice_logo;
+            $img = Utility::get_file('invoice_logo/') . $invoice_logo;
+            $img = "https://i9finance.com/storage/invoice_logo/" . $invoice_logo;
         }
         else{
             $img          = $logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-dark.png');
