@@ -441,16 +441,27 @@ class FormBuilderController extends Controller
             $arrFieldResp = [];
             foreach($request->field as $key => $value)
             {
-                $arrFieldResp[FormField::find($key)->name] = (!empty($value)) ? $value : '-';
+                if (is_array($value) && ! empty($value)) {
+                    if (is_object($value[0]) && get_class($value[0]) == 'Illuminate\Http\UploadedFile') {
+                        for ($i = 0; $i < count($_FILES['field']['name'][$key]); $i++) { 
+                            move_uploaded_file($_FILES['field']['tmp_name'][$key][$i], 'storage/form_responses/' . $_FILES['field']['name'][$key][$i]);
+                            $files[] = $_FILES['field']['name'][$key][$i];
+                        }
 
-                if (gettype($value) == 'object') {
-                    $value = $value->store('form');
+                        $arrFieldResp[FormField::find($key)->name] = $files;
+                    }
+                } else {
                     $arrFieldResp[FormField::find($key)->name] = (!empty($value)) ? $value : '-';
+
+                    if (gettype($value) == 'object') {
+                        $value = $value->store('form');
+                        $arrFieldResp[FormField::find($key)->name] = (!empty($value)) ? $value : '-';
+                    }                    
                 }
             }
 
             // store response
-            FormResponse::create(
+            $formResponse = FormResponse::create(
                 [
                     'form_id' => $form->id,
                     'response' => json_encode($arrFieldResp),

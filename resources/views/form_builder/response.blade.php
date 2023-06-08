@@ -62,10 +62,18 @@
                                 <tr>
                                     @foreach(array_values($firstThreeElements) as $ans)
                                         <td>
-                                            @if(Storage::exists($ans))
-                                                <a target="_blank" href="/storage/{{ $ans }}">{{ $ans }}</a>
+                                            @if(is_array($ans))
+                                                @foreach($ans as $item)
+                                                    @if(Storage::exists('form_responses/' . $item))
+                                                        <a target="_blank" href="/storage/form_responses/{{ $item }}">{{ $item }}</a><br>
+                                                    @endif
+                                                @endforeach
                                             @else
-                                                {{$ans}}
+                                                @if(Storage::exists($ans))
+                                                    <a target="_blank" href="/storage/{{ $ans }}">{{ $ans }}</a>
+                                                @else
+                                                    {{ $ans }}
+                                                @endif
                                             @endif
                                         </td>
                                     @endforeach

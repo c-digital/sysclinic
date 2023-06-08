@@ -112,6 +112,11 @@
                                                     {{ Form::label('field-'.$objField->id, __($objField->name),['class'=>'form-label']) }}<br>
                                                     <input type="file" name="field[{{ $objField->id }}]" required id="field-{{ $objField->id }}">
                                                 </div>
+                                            @elseif($objField->type == 'file-multiple')
+                                                <div class="form-group">
+                                                    {{ Form::label('field-'.$objField->id, __($objField->name),['class'=>'form-label']) }}<br>
+                                                    <input type="file" name="field[{{ $objField->id }}][]" multiple required id="field-{{ $objField->id }}">
+                                                </div>
                                             @endif
                                         @endforeach
                                     @endif
