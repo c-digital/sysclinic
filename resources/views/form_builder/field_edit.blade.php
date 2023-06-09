@@ -12,7 +12,7 @@
 
         <div class="col-12 form-group options-container">
             {{ Form::label('options', __('Options (comma separed values)'),['class'=>'form-label']) }}
-            {{ Form::text('options', null, array('class' => 'form-control','required'=>'required')) }}
+            {{ Form::text('options', null, array('class' => 'form-control')) }}
         </div>
     </div>
 </div>

@@ -83,7 +83,6 @@
                                                 <i class="ti ti-eye text-white"></i>
                                             </a>
                                         </div>
-
                                     </td>
                                 </tr>
                             @endforeach
